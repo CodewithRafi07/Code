@@ -1,0 +1,13 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/">
+        <file>images/logo.png</file>
+        <file>icons/admin.png</file>
+        <file>icons/customer.png</file>
+        <file>icons/logout.png</file>
+        <file>icons/search.png</file>
+        <file>icons/eye-on.png</file>
+        <file>icons/eye-off.png</file>
+        <file>stylesheets/main.qss</file>
+    </qresource>
+</RCC>

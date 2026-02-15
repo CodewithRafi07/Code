@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Spent Simulator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --dark-color: #1f2937;
+            --light-color: #f3f4f6;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Authentication Styles */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .auth-card {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .auth-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-header h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light-color);
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 0.75rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .auth-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .navbar-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .currency-selector {
+            padding: 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: var(--white);
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            padding: 2rem 0;
+        }
+
+        .dashboard-header {
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-title {
+            font-size: 2rem;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card-title {
+            font-size: 0.875rem;
+            color: #6b7280;
+            text-transform: uppercase;
+        }
+
+        .stat-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .stat-card-value {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        .money-icon {
+            background: var(--success-color);
+        }
+
+        .balance-icon {
+            background: var(--primary-color);
+        }
+
+        .products-icon {
+            background: var(--warning-color);
+        }
+
+        /* Money Panel */
+        .money-panel {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .money-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .money-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .money-option {
+            padding: 0.5rem 1rem;
+            background: var(--light-color);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .money-option:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .custom-money {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        /* Products Section */
+        .products-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .products-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-box {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+        }
+
+        .filter-select {
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: var(--white);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--light-color);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .quantity-input {
+            width: 60px;
+            padding: 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        /* Purchased Items */
+        .purchased-items {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .purchased-list {
+            margin-top: 1rem;
+        }
+
+        .purchased-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--light-color);
+        }
+
+        .purchased-item:last-child {
+            border-bottom: none;
+        }
+
+        .purchased-item-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .purchased-item-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-image-container {
+            position: relative;
+        }
+
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--light-color);
+        }
+
+        .profile-image-upload {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--primary-color);
+            color: var(--white);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-info p {
+            color: #6b7280;
+        }
+
+        .profile-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Achievements */
+        .achievements {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .achievement {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--light-color);
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+
+        .achievement.unlocked {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-top: 1rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--light-color);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-color);
+            position: absolute;
+            animation: confetti-fall 3s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--white);
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast-icon {
+            font-size: 1.5rem;
+        }
+
+        .toast.success .toast-icon {
+            color: var(--success-color);
+        }
+
+        .toast.error .toast-icon {
+            color: var(--danger-color);
+        }
+
+        .toast.warning .toast-icon {
+            color: var(--warning-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar-menu {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .products-controls {
+                flex-direction: column;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Authentication Container -->
+    <div id="authContainer" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Money Spent Simulator</h1>
+                <p>Experience the thrill of spending virtual money!</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Login</div>
+                <div class="auth-tab" data-tab="register">Register</div>
+            </div>
+            
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <button type="button" class="btn btn-block" onclick="login()">Login</button>
+                <div style="text-align: center; margin-top: 1rem;">
+                    <a href="#" style="color: var(--primary-color);">Forgot Password?</a>
+                </div>
+            </div>
+            
+            <!-- Register Form -->
+            <div id="registerForm" class="auth-form" style="display: none;">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" class="form-control" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" class="form-control" placeholder="Enter your password (min 6 characters)" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                </div>
+                <button type="button" class="btn btn-block" onclick="register()">Register</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" style="display: none;">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="container navbar-container">
+                <a href="#" class="navbar-brand">
+                    <i class="fas fa-coins"></i> Money Spent Simulator
+                </a>
+                <div class="navbar-menu">
+                    <div class="navbar-item">
+                        <label for="currencySelector">Currency:</label>
+                        <select id="currencySelector" class="currency-selector" onchange="changeCurrency()">
+                            <option value="USD">USD ($)</option>
+                            <option value="BDT">BDT (৳)</option>
+                            <option value="INR">INR (₹)</option>
+                            <option value="EUR">EUR (€)</option>
+                            <option value="GBP">GBP (£)</option>
+                            <option value="CAD">CAD (C$)</option>
+                            <option value="AUD">AUD (A$)</option>
+                            <option value="JPY">JPY (¥)</option>
+                            <option value="SAR">SAR (﷼)</option>
+                            <option value="AED">AED (د.إ)</option>
+                        </select>
+                    </div>
+                    <div class="navbar-item">
+                        <button class="btn" onclick="showProfile()">
+                            <i class="fas fa-user"></i> Profile
+                        </button>
+                    </div>
+                    <div class="navbar-item">
+                        <button class="btn btn-danger" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="container">
+            <!-- Dashboard -->
+            <section class="dashboard">
+                <div class="dashboard-header">
+                    <h1 class="dashboard-title">Welcome back, <span id="userName">User</span>!</h1>
+                    <p>Ready to spend some virtual money?</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-card-title">Total Money</span>
+                            <div class="stat-card-icon money-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-value" id="totalMoney">$0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-card-title">Remaining Balance</span>
+                            <div class="stat-card-icon balance-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-value" id="remainingBalance">$0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-card-title">Products Purchased</span>
+                            <div class="stat-card-icon products-icon">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-value" id="productsPurchased">0</div>
+                    </div>
+                </div>
+
+                <!-- Money Panel -->
+                <div class="money-panel">
+                    <div class="money-panel-header">
+                        <h2>Add Money</h2>
+                        <button class="btn btn-success" onclick="buyAllProducts()">
+                            <i class="fas fa-shopping-cart"></i> Buy All Products
+                        </button>
+                    </div>
+                    <div class="money-options">
+                        <button class="money-option" onclick="addMoney(10000)">$10,000</button>
+                        <button class="money-option" onclick="addMoney(1000000)">$1,000,000</button>
+                        <button class="money-option" onclick="addMoney(100000000)">$100,000,000</button>
+                    </div>
+                    <div class="custom-money">
+                        <input type="number" id="customAmount" class="form-control" placeholder="Custom amount">
+                        <button class="btn" onclick="addCustomMoney()">Add Money</button>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <h3>Spending Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="spendingProgress" style="width: 0%"></div>
+                    </div>
+                    <p id="progressText">0% of your money spent</p>
+                </div>
+
+                <!-- Achievements -->
+                <div class="achievements">
+                    <div class="achievement" id="bigSpender">
+                        <i class="fas fa-trophy"></i> Big Spender
+                    </div>
+                    <div class="achievement" id="luxuryLover">
+                        <i class="fas fa-gem"></i> Luxury Lover
+                    </div>
+                    <div class="achievement" id="moneyDestroyer">
+                        <i class="fas fa-fire"></i> Money Destroyer
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section class="products-section">
+                <div class="section-header">
+                    <h2 class="section-title">Available Products</h2>
+                </div>
+                
+                <div class="products-controls">
+                    <input type="text" id="productSearch" class="search-box" placeholder="Search products..." onkeyup="filterProducts()">
+                    <select id="categoryFilter" class="filter-select" onchange="filterProducts()">
+                        <option value="all">All Categories</option>
+                        <option value="luxury">Luxury Products</option>
+                        <option value="normal">Normal Products</option>
+                    </select>
+                    <select id="sortBy" class="filter-select" onchange="sortProducts()">
+                        <option value="name">Sort by Name</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                    </select>
+                </div>
+                
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be dynamically loaded here -->
+                </div>
+            </section>
+
+            <!-- Purchased Items -->
+            <section class="purchased-items">
+                <h2>Your Purchases</h2>
+                <div class="purchased-list" id="purchasedList">
+                    <p style="text-align: center; color: #6b7280;">You haven't purchased anything yet.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Your Profile</h2>
+                <button class="modal-close" onclick="closeModal('profileModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="profile-section">
+                <div class="profile-header">
+                    <div class="profile-image-container">
+                        <img id="profileImage" src="https://picsum.photos/seed/user123/100/100.jpg" alt="Profile" class="profile-image">
+                        <div class="profile-image-upload" onclick="document.getElementById('imageUpload').click()">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <input type="file" id="imageUpload" style="display: none;" onchange="updateProfileImage(event)">
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="profileName">User Name</h2>
+                        <p id="profileEmail">user@example.com</p>
+                    </div>
+                </div>
+                
+                <form class="profile-form" onsubmit="updateProfile(event)">
+                    <div class="form-group">
+                        <label for="profileNameInput">Name</label>
+                        <input type="text" id="profileNameInput" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileEmailInput">Email</label>
+                        <input type="email" id="profileEmailInput" class="form-control" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="currentPassword">Current Password</label>
+                        <input type="password" id="currentPassword" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" class="form-control">
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <button type="submit" class="btn">Update Profile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="toast-message"></div>
+    </div>
+
+    <script>
+        // Global Variables
+        let currentUser = null;
+        let products = [];
+        let currencies = {
+            USD: { symbol: '$', rate: 1 },
+            BDT: { symbol: '৳', rate: 109.5 },
+            INR: { symbol: '₹', rate: 82.5 },
+            EUR: { symbol: '€', rate: 0.92 },
+            GBP: { symbol: '£', rate: 0.79 },
+            CAD: { symbol: 'C$', rate: 1.35 },
+            AUD: { symbol: 'A$', rate: 1.52 },
+            JPY: { symbol: '¥', rate: 149.5 },
+            SAR: { symbol: '﷼', rate: 3.75 },
+            AED: { symbol: 'د.إ', rate: 3.67 }
+        };
+        let currentCurrency = 'USD';
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthState();
+            initializeProducts();
+            setupEventListeners();
+        });
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Auth Tabs
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    switchAuthTab(tabName);
+                });
+            });
+        }
+
+        // Authentication Functions
+        function checkAuthState() {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showMainApp();
+            } else {
+                showAuthContainer();
+            }
+        }
+
+        function showAuthContainer() {
+            document.getElementById('authContainer').style.display = 'flex';
+            document.getElementById('mainApp').style.display = 'none';
+        }
+
+        function showMainApp() {
+            document.getElementById('authContainer').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            updateDashboard();
+            loadProducts();
+            updatePurchasedList();
+            checkAchievements();
+        }
+
+        function switchAuthTab(tabName) {
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+            if (tabName === 'login') {
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('registerForm').style.display = 'none';
+            } else {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('registerForm').style.display = 'block';
+            }
+        }
+
+        function register() {
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!name || !email || !password || !confirmPassword) {
+                showToast('Please fill in all fields', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showToast('Password must be at least 6 characters', 'error');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showToast('Passwords do not match', 'error');
+                return;
+            }
+
+            // Check if user already exists
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            if (users.find(user => user.email === email)) {
+                showToast('User with this email already exists', 'error');
+                return;
+            }
+
+            // Create new user
+            const newUser = {
+                id: Date.now(),
+                name,
+                email,
+                password, // In a real app, this should be hashed
+                profileImage: `https://picsum.photos/seed/${email}/100/100.jpg`,
+                money: 0,
+                purchasedProducts: [],
+                currency: 'USD',
+                settings: {}
+            };
+
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            showToast('Registration successful! Please login.', 'success');
+            switchAuthTab('login');
+            
+            // Clear form
+            document.getElementById('registerForm').reset();
+        }
+
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !password) {
+                showToast('Please enter email and password', 'error');
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (!user) {
+                showToast('Invalid email or password', 'error');
+                return;
+            }
+
+            currentUser = user;
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            
+            showToast('Login successful!', 'success');
+            showMainApp();
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            currentUser = null;
+            showToast('Logged out successfully', 'success');
+            showAuthContainer();
+        }
+
+        // Dashboard Functions
+        function updateDashboard() {
+            if (!currentUser) return;
+
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('totalMoney').textContent = formatMoney(currentUser.money);
+            document.getElementById('remainingBalance').textContent = formatMoney(currentUser.money - getTotalSpent());
+            document.getElementById('productsPurchased').textContent = currentUser.purchasedProducts.length;
+
+            // Update progress bar
+            const totalSpent = getTotalSpent();
+            const progressPercentage = currentUser.money > 0 ? (totalSpent / currentUser.money) * 100 : 0;
+            document.getElementById('spendingProgress').style.width = `${progressPercentage}%`;
+            document.getElementById('progressText').textContent = `${progressPercentage.toFixed(1)}% of your money spent`;
+        }
+
+        function getTotalSpent() {
+            return currentUser.purchasedProducts.reduce((total, product) => {
+                return total + (product.price * product.quantity);
+            }, 0);
+        }
+
+        function formatMoney(amount) {
+            const currency = currencies[currentCurrency];
+            const convertedAmount = amount * currency.rate;
+            return `${currency.symbol}${convertedAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        }
+
+        // Currency Functions
+        function changeCurrency() {
+            currentCurrency = document.getElementById('currencySelector').value;
+            if (currentUser) {
+                currentUser.currency = currentCurrency;
+                saveUserData();
+            }
+            updateDashboard();
+            loadProducts();
+            updatePurchasedList();
+        }
+
+        // Money Functions
+        function addMoney(amount) {
+            if (!currentUser) return;
+
+            currentUser.money += amount;
+            saveUserData();
+            updateDashboard();
+            showToast(`Added ${formatMoney(amount)} to your account!`, 'success');
+        }
+
+        function addCustomMoney() {
+            const amount = parseFloat(document.getElementById('customAmount').value);
+            if (isNaN(amount) || amount <= 0) {
+                showToast('Please enter a valid amount', 'error');
+                return;
+            }
+
+            addMoney(amount);
+            document.getElementById('customAmount').value = '';
+        }
+
+        // Product Functions
+        function initializeProducts() {
+            // Hardcoded products - add or modify products here
+            products = [
+                {
+                    id: 1,
+                    name: "Luxury Sports Car",
+                    price: 250000,
+                    category: "luxury",
+                    image: "https://picsum.photos/seed/car1/300/200.jpg",
+                    description: "A high-performance luxury sports car with top-notch features."
+                },
+                {
+                    id: 2,
+                    name: "Smartphone",
+                    price: 999,
+                    category: "normal",
+                    image: "https://picsum.photos/seed/phone1/300/200.jpg",
+                    description: "Latest smartphone with advanced features and great camera."
+                },
+                {
+                    id: 3,
+                    name: "Luxury Watch",
+                    price: 15000,
+                    category: "luxury",
+                    image: "https://picsum.photos/seed/watch1/300/200.jpg",
+                    description: "Swiss-made luxury watch with precision engineering."
+                },
+                {
+                    id: 4,
+                    name: "Laptop",
+                    price: 1299,
+                    category: "normal",
+                    image: "https://picsum.photos/seed/laptop1/300/200.jpg",
+                    description: "High-performance laptop for work and gaming."
+                },
+                {
+                    id: 5,
+                    name: "Private Jet",
+                    price: 5000000,
+                    category: "luxury",
+                    image: "https://picsum.photos/seed/jet1/300/200.jpg",
+                    description: "Your own private jet for luxury travel."
+                },
+                {
+                    id: 6,
+                    name: "Car",
+                    price: 299,
+                    category: "normal",
+                    image: "https://picsum.photos/seed/headphones1/300/200.jpg",
+                    description: "Premium noise-cancelling headphones."
+                },
+                {
+                    id: 7,
+                    name: "Luxury Villa",
+                    price: 5000000,
+                    category: "luxury",
+                    image: "https://picsum.photos/seed/villa1/300/200.jpg",
+                    description: "Beachfront luxury villa with all amenities."
+                },
+                {
+                    id: 8,
+                    name: "Gaming Console",
+                    price: 499,
+                    category: "normal",
+                    image: "https://picsum.photos/seed/console1/300/200.jpg",
+                    description: "Next-generation gaming console for immersive gaming."
+                },
+                {
+                    id: 9,
+                    name: "Diamond Necklace",
+                    price: 75000,
+                    category: "luxury",
+                    image: "https://picsum.photos/seed/diamond1/300/200.jpg",
+                    description: "Exquisite diamond necklace with platinum setting."
+                },
+                {
+                    id: 10,
+                    name: "Grocery Set",
+                    price: 150,
+                    category: "normal",
+                    image: "https://picsum.photos/seed/grocery1/300/200.jpg",
+                    description: "Complete weekly grocery set with fresh produce."
+                },
+                {
+                    id: 11,
+                    name: "Yacht",
+                    price: 2500000,
+                    category: "luxury",
+                    image: "https://picsum.photos/seed/yacht1/300/200.jpg",
+                    description: "Luxury yacht for ocean adventures."
+                },
+                {
+                    id: 12,
+                    name: "Designer Handbag",
+                    price: 2500,
+                    category: "luxury",
+                    image: "https://picsum.photos/seed/handbag1/300/200.jpg",
+                    description: "Premium designer handbag made with authentic leather."
+                },
+                {
+                    id: 13,
+                    name: "Coffee Maker",
+                    price: 199,
+                    category: "normal",
+                    image: "https://picsum.photos/seed/coffee1/300/200.jpg",
+                    description: "High-quality coffee maker for your morning brew."
+                },
+                {
+                    id: 14,
+                    name: "Smart TV",
+                    price: 899,
+                    category: "normal",
+                    image: "https://picsum.photos/seed/tv1/300/200.jpg",
+                    description: "4K Smart TV with streaming capabilities."
+                },
+                {
+                    id: 15,
+                    name: "Private Island",
+                    price: 10000000,
+                    category: "luxury",
+                    image: "https://picsum.photos/seed/island1/300/200.jpg",
+                    description: "Your own private island paradise."
+                }
+            ];
+
+            // Save products to localStorage
+            localStorage.setItem('products', JSON.stringify(products));
+        }
+
+        function loadProducts() {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = '';
+
+            const filteredProducts = getFilteredProducts();
+
+            filteredProducts.forEach(product => {
+                const productCard = createProductCard(product);
+                productsGrid.appendChild(productCard);
+            });
+        }
+
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <img src="${product.image}" alt="${product.name}" class="product-image">
+                <div class="product-info">
+                    <span class="product-category">${product.category}</span>
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-price">${formatMoney(product.price)}</p>
+                    <div class="product-actions">
+                        <input type="number" class="quantity-input" value="1" min="1" id="qty-${product.id}">
+                        <button class="btn" onclick="buyProduct(${product.id})">Buy Now</button>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        function getFilteredProducts() {
+            let filtered = [...products];
+            
+            // Search filter
+            const searchTerm = document.getElementById('productSearch').value.toLowerCase();
+            if (searchTerm) {
+                filtered = filtered.filter(product => 
+                    product.name.toLowerCase().includes(searchTerm) ||
+                    product.description.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Category filter
+            const category = document.getElementById('categoryFilter').value;
+            if (category !== 'all') {
+                filtered = filtered.filter(product => product.category === category);
+            }
+            
+            // Sort
+            const sortBy = document.getElementById('sortBy').value;
+            switch (sortBy) {
+                case 'name':
+                    filtered.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'price-low':
+                    filtered.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    filtered.sort((a, b) => b.price - a.price);
+                    break;
+            }
+            
+            return filtered;
+        }
+
+        function filterProducts() {
+            loadProducts();
+        }
+
+        function sortProducts() {
+            loadProducts();
+        }
+
+        function buyProduct(productId) {
+            if (!currentUser) return;
+
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const quantity = parseInt(document.getElementById(`qty-${productId}`).value) || 1;
+            const totalPrice = product.price * quantity;
+
+            if (currentUser.money < totalPrice) {
+                showToast('Insufficient funds!', 'error');
+                return;
+            }
+
+            // Deduct money
+            currentUser.money -= totalPrice;
+
+            // Add to purchased products
+            const existingProduct = currentUser.purchasedProducts.find(p => p.id === productId);
+            if (existingProduct) {
+                existingProduct.quantity += quantity;
+            } else {
+                currentUser.purchasedProducts.push({
+                    ...product,
+                    quantity
+                });
+            }
+
+            saveUserData();
+            updateDashboard();
+            updatePurchasedList();
+            checkAchievements();
+
+            // Show confetti for expensive purchases
+            if (totalPrice > 10000) {
+                showConfetti();
+            }
+
+            showToast(`Purchased ${quantity}x ${product.name} for ${formatMoney(totalPrice)}!`, 'success');
+        }
+
+        function buyAllProducts() {
+            if (!currentUser) return;
+
+            const totalPrice = products.reduce((total, product) => total + product.price, 0);
+
+            if (currentUser.money < totalPrice) {
+                showToast('Insufficient funds to buy all products!', 'error');
+                return;
+            }
+
+            // Deduct money
+            currentUser.money -= totalPrice;
+
+            // Add all products to purchased list
+            products.forEach(product => {
+                const existingProduct = currentUser.purchasedProducts.find(p => p.id === product.id);
+                if (existingProduct) {
+                    existingProduct.quantity += 1;
+                } else {
+                    currentUser.purchasedProducts.push({
+                        ...product,
+                        quantity: 1
+                    });
+                }
+            });
+
+            saveUserData();
+            updateDashboard();
+            updatePurchasedList();
+            checkAchievements();
+            showConfetti();
+
+            showToast(`Purchased all products for ${formatMoney(totalPrice)}!`, 'success');
+        }
+
+        function updatePurchasedList() {
+            const purchasedList = document.getElementById('purchasedList');
+            
+            if (currentUser.purchasedProducts.length === 0) {
+                purchasedList.innerHTML = '<p style="text-align: center; color: #6b7280;">You haven\'t purchased anything yet.</p>';
+                return;
+            }
+
+            purchasedList.innerHTML = '';
+            currentUser.purchasedProducts.forEach(product => {
+                const item = document.createElement('div');
+                item.className = 'purchased-item';
+                item.innerHTML = `
+                    <div class="purchased-item-info">
+                        <img src="${product.image}" alt="${product.name}" class="purchased-item-image">
+                        <div>
+                            <h4>${product.name}</h4>
+                            <p>${product.quantity}x ${formatMoney(product.price)} = ${formatMoney(product.price * product.quantity)}</p>
+                        </div>
+                    </div>
+                `;
+                purchasedList.appendChild(item);
+            });
+        }
+
+        // Profile Functions
+        function showProfile() {
+            if (!currentUser) return;
+
+            document.getElementById('profileName').textContent = currentUser.name;
+            document.getElementById('profileEmail').textContent = currentUser.email;
+            document.getElementById('profileImage').src = currentUser.profileImage;
+            document.getElementById('profileNameInput').value = currentUser.name;
+            document.getElementById('profileEmailInput').value = currentUser.email;
+            
+            document.getElementById('profileModal').classList.add('active');
+        }
+
+        function updateProfileImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentUser.profileImage = e.target.result;
+                document.getElementById('profileImage').src = e.target.result;
+                saveUserData();
+                showToast('Profile image updated!', 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateProfile(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('profileNameInput').value;
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+
+            if (!name) {
+                showToast('Name cannot be empty', 'error');
+                return;
+            }
+
+            // Update name
+            currentUser.name = name;
+            document.getElementById('userName').textContent = name;
+            document.getElementById('profileName').textContent = name;
+
+            // Update password if provided
+            if (currentPassword && newPassword) {
+                if (currentPassword !== currentUser.password) {
+                    showToast('Current password is incorrect', 'error');
+                    return;
+                }
+
+                if (newPassword.length < 6) {
+                    showToast('New password must be at least 6 characters', 'error');
+                    return;
+                }
+
+                currentUser.password = newPassword;
+                showToast('Password updated!', 'success');
+            }
+
+            saveUserData();
+            showToast('Profile updated successfully!', 'success');
+            
+            // Clear password fields
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+        }
+
+        // Achievement Functions
+        function checkAchievements() {
+            if (!currentUser) return;
+
+            const totalSpent = getTotalSpent();
+            const luxuryCount = currentUser.purchasedProducts.filter(p => p.category === 'luxury').length;
+
+            // Big Spender - Spent more than $1,000,000
+            if (totalSpent > 1000000) {
+                document.getElementById('bigSpender').classList.add('unlocked');
+            }
+
+            // Luxury Lover - Bought 5 or more luxury items
+            if (luxuryCount >= 5) {
+                document.getElementById('luxuryLover').classList.add('unlocked');
+            }
+
+            // Money Destroyer - Spent 90% or more of total money
+            if (currentUser.money > 0 && (totalSpent / currentUser.money) >= 0.9) {
+                document.getElementById('moneyDestroyer').classList.add('unlocked');
+            }
+        }
+
+        // Utility Functions
+        function saveUserData() {
+            if (!currentUser) return;
+
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Update user in users array
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = toast.querySelector('.toast-message');
+            const toastIcon = toast.querySelector('.toast-icon i');
+            
+            toastMessage.textContent = message;
+            toast.className = `toast ${type} show`;
+            
+            // Update icon based on type
+            if (type === 'success') {
+                toastIcon.className = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                toastIcon.className = 'fas fa-exclamation-circle';
+            } else if (type === 'warning') {
+                toastIcon.className = 'fas fa-exclamation-triangle';
+            }
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function showConfetti() {
+            const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#f43f5e', '#f59e0b', '#10b981'];
+            
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = Math.random() * 10 + 5 + 'px';
+                    confetti.style.height = confetti.style.width;
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 3000);
+                }, i * 30);
+            }
+        }
+    </script>
+</body>
+</html>

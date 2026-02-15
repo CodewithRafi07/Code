@@ -1,0 +1,150 @@
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm> 
+#include <iomanip>
+using namespace std;
+
+class Equipment {
+protected:
+    // Encapsulated attributes
+    string equipmentID; 
+    int flightTime;  
+    double maxSpeed;    
+    int cameraCount; 
+
+public:
+    Equipment(const string& id = "", int fTime = 0, double mSpeed = 0.0, int cCount = 0)
+        : equipmentID(id), flightTime(fTime), maxSpeed(mSpeed), cameraCount(cCount) {}
+
+    virtual ~Equipment() = default;
+
+    // Getters
+    const string& getEquipmentID(){ return equipmentID; }
+    int    getFlightTime(){ return flightTime; }
+    double getMaxSpeed(){ return maxSpeed; }
+    int    getCameraCount(){ return cameraCount; }
+
+    // Setters
+    void setEquipmentID(const string& id) { equipmentID = id; }
+    void setFlightTime(int minutes) { flightTime = minutes; }
+    void setMaxSpeed(double kmph) { maxSpeed = kmph; }
+    void setCameraCount(int count) { cameraCount = count; }
+
+    // Pure virtual functions 
+    virtual void operate() const = 0;
+    virtual void showInfo() const = 0;
+};
+
+class Insurance {
+private:
+    bool insured;        
+    int  monthsRemaining;
+
+public:
+    Insurance(bool isInsured = false, int months = 0)
+        : insured(isInsured), monthsRemaining(months) {}
+
+    void setInsurance(bool isInsured, int months) {
+        insured = isInsured;
+        monthsRemaining = isInsured ? max(0, months) : 0;
+    }
+
+    bool isInsured()     const { return insured; }
+    int  getMonthsLeft() const { return monthsRemaining; }
+
+    void displayInsurance() const {
+        cout << "Insurance: " << (insured ? "Insured" : "Not insured");
+        if (insured) cout << " (" << monthsRemaining << " month(s) left)";
+        cout << '\n';
+    }
+};
+
+// ============================== //
+// 3) Drone: Multiple inheritance from Equipment + Insurance
+// ============================== //
+class Drone : public Equipment, public Insurance {
+public:
+    Drone(const string& id,
+          int fTime,
+          double mSpeed,
+          int cCount,
+          bool isInsured = false,
+          int months = 0)
+        : Equipment(id, fTime, mSpeed, cCount),
+          Insurance(isInsured, months) {}
+
+    // ---------- Runtime polymorphism ----------
+    void operate() const override {
+        cout << "Drone [" << equipmentID << "] is operating: "
+             << "max " << fixed << setprecision(1) << maxSpeed
+             << " km/h, flight time " << flightTime << " min.\n";
+    }
+
+    void showInfo() const override {
+        cout << "=== Drone Info ===\n";
+        cout << "ID          : " << equipmentID << '\n';
+        cout << "Flight Time : " << flightTime << " minute(s)\n";
+        cout << "Max Speed   : " << fixed << setprecision(1) << maxSpeed << " km/h\n";
+        cout << "Cameras     : " << cameraCount << '\n';
+        displayInsurance();
+        cout << "==================\n";
+    }
+
+    // ---------- Compile-time polymorphism ----------
+    void loadMission(const string& missionName) const {
+        cout << "Mission loaded by name: \"" << missionName
+             << "\" on drone [" << equipmentID << "].\n";
+    }
+
+    void loadMission(const vector<string>& waypoints) const {
+        cout << "Mission loaded with " << waypoints.size()
+             << " waypoint(s) on drone [" << equipmentID << "].\n";
+    }
+
+    // ---------- Operator overloading ----------
+    friend Drone operator+(const Drone& a, const Drone& b) {
+        string combinedID = a.getEquipmentID() + "&" + b.getEquipmentID();
+        int combinedFlightTime = a.getFlightTime() + b.getFlightTime();
+        double combinedMaxSpeed = max(a.getMaxSpeed(), b.getMaxSpeed());
+        int combinedCameras = a.getCameraCount() + b.getCameraCount();
+
+        return Drone(combinedID, combinedFlightTime, combinedMaxSpeed, combinedCameras, false, 0);
+    }
+};
+
+// ============================== //
+// Demonstration
+// ============================== //
+int main() {
+    Drone d1("D301", 45, 62.5, 2, true, 6);
+    Drone d2("D302", 30, 78.0, 1, false, 0);
+    Drone d3("D303", 60, 55.0, 3, true, 12);
+
+    Equipment* e1 = &d1;
+    Equipment* e2 = &d2;
+
+    e1->showInfo();
+    e2->showInfo();
+
+    e1->operate();
+    e2->operate();
+
+    d1.loadMission("Canyon Run");
+    vector<string> route = {"WP-A", "WP-B", "WP-C", "WP-D"};
+    d2.loadMission(route);
+
+    // Merge two drones
+    Drone combined = d1 + d2;
+    cout << "\nAfter merging with operator+ :\n";
+    combined.showInfo();
+
+    // Merge three (chained)
+    Drone mega = combined + d3;
+    cout << "\nAfter merging three drones:\n";
+    mega.showInfo();
+
+    return 0;
+}
+

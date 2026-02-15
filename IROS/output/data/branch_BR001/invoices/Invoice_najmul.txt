@@ -1,0 +1,7 @@
+===== INVOICE =====
+Customer: najmul
+Branch: Main Branch
+Payment Method: Cash
+Total Paid: 156.00 BDT
+Membership: No
+Loyalty Points: 0

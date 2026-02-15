@@ -1,0 +1,265 @@
+/*Name: Md Rafi Khan
+ID: 41240302538
+Lab No: Lab_1
+Course Code: CSE 1360*/
+
+//Problem_1: Find the largest of Three Numbers
+
+#include<iostream>
+using namespace std;
+ 
+int main() {
+    int Number1, Number2, Number3;
+
+    cout << "Enter the First Number ";
+    cin >> Number1;
+
+    cout << "Enter the Second Number ";
+    cin >> Number2;
+
+    cout << "Enter the Third Number ";
+    cin >> Number3;
+
+    int largest = Number1;
+
+    if (Number2 > largest) {
+        largest = Number2;
+    }
+
+    if(Number3 > largest){
+        largest=Number3;
+    }
+
+    cout<< "The Largest Number is " <<largest<<endl;
+    return 0;
+}
+
+
+
+//Problem_2: Check whether a Number is Prime
+
+#include<iostream>
+using namespace std;
+
+int Number, i, flag=0;
+int main() {
+
+cout<< "Enter a Number ";
+cin >> Number;
+
+if (Number<= 1) {
+    cout << Number << " Is not prime" << endl;
+} 
+else {
+    for (i = 2; i <= Number/2; i++) {
+        if (Number%i == 0) {
+            flag = 1;
+            break;
+        }
+    }
+
+    if (flag == 0) {
+        cout << Number << " Is prime Number" << endl;
+    }
+    else {
+        cout << Number << " Is not Prime Number" << endl;
+    }
+}
+return 0;
+}
+
+
+
+//Problem_3: Calculate the Factorial of a Number
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int number, i = 1;
+    int Product=1;
+
+    cout << "Enter a Number ";
+    cin >> number;
+
+    while (i <= number)
+    {
+        Product = Product * i;
+        i++;
+    }
+    cout << "Factorial of " << number << " is " << Product << endl;
+    return 0;
+}
+
+
+
+//Problem_4: Print Fibonacci Series
+
+#include<iostream>
+using namespace std;
+
+int main (){
+    int n, a, b, next = 0;
+
+    cout << "Enter the first TWO numbers (Using one space) " ;
+    cin >> a >> b;
+
+    cout << "Enter the Limit or Last Number ";
+    cin >> n;
+
+    cout << "Fibonacci Series up to " << n << " is ";
+
+    while (a <= n) {
+        cout << a << " ";
+        next = a + b;
+        a = b;
+        b = next;
+    }
+
+    return 0;
+}
+
+
+
+//Problem_5: Reverse a Number
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int number, tnum, rev=0;
+
+    cout << "Enter the Number: ";
+    cin >> number;
+
+    while (number!= 0){
+        tnum = number % 10;
+        rev = rev * 10 + tnum;
+        number /= 10;
+    }
+
+    cout << "The reversed Number is " << rev << endl;
+    return 0;
+}
+
+
+
+//Problem_6: Check whether a number is Palindrome
+
+#include <iostream>
+#include <string>
+#include<algorithm>
+using namespace std;
+
+int main() {
+    string s;
+    cin >> s;   // Read input string
+    
+    string rev = s;
+    reverse(rev.begin(), rev.end());  // Reverse the string
+    //reverse(startIterator, endIterator); 
+    
+    if (s == rev)
+        cout << "Palindrome" << endl;  // Palindrome
+    else
+        cout << "Not palindrome" << endl;    // Not palindrome
+    
+    return 0;
+}
+
+
+
+
+//Problem_7: Sum of digits of a Number
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int num, digit, sum = 0;
+
+    cout << "Enter a number: ";
+    cin >> num;
+
+    while (num != 0) {
+        digit = num % 10;
+        sum = sum + digit;
+        num /= 10;
+    }
+
+    cout << "Sum of digits is " << sum << endl;
+
+    return 0;
+}
+
+
+
+//Problem_8: Find GCD of Two Numbers
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b;
+
+    cout << "Enter first number: ";
+    cin >> a;
+
+    cout << "Enter second number: ";
+    cin >> b;
+
+    int gcd;
+
+    for (int i = 1; i <= a && i <= b; i++) {
+        if (a % i == 0 && b % i == 0) {
+            gcd = i;
+        }
+    }
+    cout << "The GCD of " << a << " and " << b << " is " << gcd << endl;
+
+    return 0;
+}
+
+
+
+//Problem_9: Check whether a number is Even or odd
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int num;
+
+    cout << "Enter a number: ";
+    cin >> num;
+
+    if (num % 2 == 0) {
+        cout << num << " is even" << endl;
+    } else {
+        cout << num << " is odd" << endl;
+    }
+
+    return 0;
+}
+
+
+
+//Problem_10: Multiplication table of a Number
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int num;
+
+    cout << "Enter a number: ";
+    cin >> num;
+
+    cout << "Multiplication table of " << num << ":\n";
+
+    for (int i = 1; i <= 10; i++) {
+        cout << num << " x " << i << " = " << num * i << endl;
+    }
+
+    return 0;
+}

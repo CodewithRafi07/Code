@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Presentation - CSE 1250</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans', sans-serif; }
+        code { font-family: 'JetBrains Mono', monospace; }
+
+        /* University Theme Colors */
+        .nub-blue { color: #003366; }
+        .bg-nub-blue { background-color: #003366; }
+        .nub-red { color: #cc0000; }
+        .bg-nub-red { background-color: #cc0000; }
+        
+        /* Modern Card Effects */
+        .member-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .member-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #003366;
+        }
+
+        /* Abstract Background Pattern */
+        .dot-pattern {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #003366 0%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Slide Transition & Visibility */
+        .slide { display: none; opacity: 0; transition: opacity 0.4s ease-in-out; animation: fadeIn 0.5s ease-out forwards; }
+        .slide.active { display: flex; opacity: 1; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Utilities for content slides */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 h-screen flex flex-col items-center justify-center p-4 select-none overflow-hidden">
+
+    <!-- Main Slide Container (16:9 Aspect Ratio) -->
+    <div class="relative w-full max-w-6xl aspect-video bg-white shadow-2xl rounded-2xl overflow-hidden ring-1 ring-black/5 flex flex-col">
+        
+        <!-- Decorative Background Elements (Persistent) -->
+        <div class="absolute inset-0 dot-pattern opacity-40 pointer-events-none z-0"></div>
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-60 z-0"></div>
+        <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-red-50 rounded-full blur-3xl opacity-60 z-0"></div>
+
+        <!-- Header Bar (Persistent) -->
+        <div class="z-20 bg-[#003366] text-white px-8 py-4 flex items-center justify-between shadow-lg relative overflow-hidden h-20 shrink-0">
+            <!-- Subtle glow in header -->
+            <div class="absolute top-0 right-0 w-64 h-full bg-gradient-to-l from-white/10 to-transparent pointer-events-none"></div>
+            
+            <div class="flex items-center gap-4 relative">
+                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#003366] font-extrabold text-xs shadow-inner ring-2 ring-white/50">
+                    NUB
+                </div>
+                <div>
+                    <h2 class="text-sm font-bold tracking-wide leading-tight text-white">NORTHERN UNIVERSITY BANGLADESH</h2>
+                    <p class="text-[10px] text-blue-200 font-medium tracking-[0.2em] uppercase">Knowledge • Innovation • Leadership</p>
+                </div>
+            </div>
+            <div class="text-right flex items-center gap-4">
+                 <div class="hidden md:block inline-block px-3 py-1 bg-white/10 rounded-full border border-white/20 backdrop-blur-sm">
+                    <p class="text-[10px] font-bold text-white uppercase tracking-widest">Group Presentation</p>
+                 </div>
+                 <span id="slide-counter" class="font-mono text-xs text-blue-200 bg-[#002244] px-2 py-1 rounded">01 / 12</span>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 relative z-10 overflow-hidden">
+
+            <!-- SLIDE 1: INTRO & TEAM (Your Original Design) -->
+            <div class="slide active w-full h-full p-8 gap-10" id="slide-1">
+                <!-- LEFT COLUMN: Course Info -->
+                <div class="w-5/12 flex flex-col justify-center space-y-8 pr-6 border-r border-gray-100 relative">
+                    <!-- Watermark -->
+                    <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-10 text-9xl font-black text-gray-50 opacity-50 pointer-events-none select-none">C</div>
+
+                    <div class="space-y-3 relative">
+                        <div class="flex items-center gap-2">
+                            <span class="w-8 h-[2px] bg-red-500"></span>
+                            <p class="text-blue-600 font-bold tracking-widest text-xs uppercase">Department of</p>
+                        </div>
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 leading-tight">
+                            COMPUTER SCIENCE <br/> & <span class="text-gradient">ENGINEERING</span>
+                        </h1>
+                    </div>
+
+                    <div class="space-y-6 relative">
+                        <!-- Course Code Box -->
+                        <div class="bg-gradient-to-br from-[#003366] to-[#004b96] p-6 rounded-xl shadow-lg text-white transform hover:scale-105 transition-transform duration-300 cursor-default">
+                            <div class="flex justify-between items-start mb-2">
+                                <p class="text-blue-200 text-xs font-bold uppercase tracking-wider">Course Code</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-300 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                            </div>
+                            <p class="text-5xl font-bold tracking-tight">CSE 1250</p>
+                        </div>
+                        
+                        <!-- Course Title -->
+                        <div class="pl-2">
+                            <p class="text-gray-400 text-xs font-bold uppercase mb-1 tracking-wider">Course Title</p>
+                            <h2 class="text-2xl font-bold text-gray-800">SOFTWARE DEVELOPMENT-I</h2>
+                            <div class="inline-flex items-center gap-2 mt-1 px-3 py-1 bg-red-50 text-red-700 rounded-full text-sm font-bold border border-red-100">
+                                <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+                                (C Programming)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: Team Grid -->
+                <div class="w-7/12 flex flex-col justify-center">
+                    <div class="flex items-center justify-between mb-6 pl-1">
+                        <h3 class="text-[#003366] font-bold text-sm uppercase tracking-wider flex items-center gap-2">Team Members</h3>
+                        <span class="text-xs text-gray-400 italic">Click names to edit</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-5">
+                        <!-- Member 1 -->
+                        <div class="member-card bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center gap-4 relative overflow-hidden group cursor-pointer">
+                            <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-xl border border-blue-100">1</div>
+                            <div class="min-w-0 z-10 flex flex-col items-start">
+                                <h4 class="font-bold text-gray-800 text-base leading-tight truncate w-full" contenteditable="true">Student Name</h4>
+                                <span class="inline-block bg-blue-100 text-blue-800 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wide my-1" contenteditable="true">Team Leader</span>
+                                <p class="text-xs text-gray-500 font-mono" contenteditable="true">ID: 20230001</p>
+                            </div>
+                        </div>
+                        <!-- Member 2 -->
+                        <div class="member-card bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center gap-4 relative overflow-hidden group cursor-pointer">
+                             <div class="w-14 h-14 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 font-bold text-xl border border-emerald-100">2</div>
+                            <div class="min-w-0 z-10 flex flex-col items-start">
+                                <h4 class="font-bold text-gray-800 text-base leading-tight truncate w-full" contenteditable="true">Student Name</h4>
+                                <span class="inline-block bg-emerald-100 text-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wide my-1" contenteditable="true">Developer</span>
+                                <p class="text-xs text-gray-500 font-mono" contenteditable="true">ID: 20230002</p>
+                            </div>
+                        </div>
+                        <!-- Member 3 -->
+                        <div class="member-card bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center gap-4 relative overflow-hidden group cursor-pointer">
+                             <div class="w-14 h-14 rounded-full bg-purple-50 flex items-center justify-center text-purple-600 font-bold text-xl border border-purple-100">3</div>
+                            <div class="min-w-0 z-10 flex flex-col items-start">
+                                <h4 class="font-bold text-gray-800 text-base leading-tight truncate w-full" contenteditable="true">Student Name</h4>
+                                <span class="inline-block bg-purple-100 text-purple-800 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wide my-1" contenteditable="true">Analyst</span>
+                                <p class="text-xs text-gray-500 font-mono" contenteditable="true">ID: 20230003</p>
+                            </div>
+                        </div>
+                        <!-- Member 4 -->
+                        <div class="member-card bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center gap-4 relative overflow-hidden group cursor-pointer">
+                             <div class="w-14 h-14 rounded-full bg-orange-50 flex items-center justify-center text-orange-600 font-bold text-xl border border-orange-100">4</div>
+                            <div class="min-w-0 z-10 flex flex-col items-start">
+                                <h4 class="font-bold text-gray-800 text-base leading-tight truncate w-full" contenteditable="true">Student Name</h4>
+                                <span class="inline-block bg-orange-100 text-orange-800 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wide my-1" contenteditable="true">Designer</span>
+                                <p class="text-xs text-gray-500 font-mono" contenteditable="true">ID: 20230004</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 2: AGENDA -->
+            <div class="slide w-full h-full p-12 flex-col" id="slide-2">
+                <div class="mb-8 border-l-4 border-[#003366] pl-6">
+                    <h2 class="text-4xl font-bold text-[#003366]">Presentation Outline</h2>
+                    <p class="text-gray-500 mt-2">What we will cover today</p>
+                </div>
+                <div class="grid grid-cols-3 gap-6 h-full content-start">
+                    <div class="glass-panel p-6 rounded-xl hover:bg-blue-50 transition-colors">
+                        <span class="text-5xl font-black text-gray-200 block mb-2">01</span>
+                        <h3 class="text-xl font-bold text-gray-800" contenteditable="true">Introduction</h3>
+                        <p class="text-sm text-gray-500 mt-2" contenteditable="true">History and significance of C Programming language.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl hover:bg-blue-50 transition-colors">
+                        <span class="text-5xl font-black text-gray-200 block mb-2">02</span>
+                        <h3 class="text-xl font-bold text-gray-800" contenteditable="true">Key Concepts</h3>
+                        <p class="text-sm text-gray-500 mt-2" contenteditable="true">Variables, Loops, and Control Structures.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl hover:bg-blue-50 transition-colors">
+                        <span class="text-5xl font-black text-gray-200 block mb-2">03</span>
+                        <h3 class="text-xl font-bold text-gray-800" contenteditable="true">Examples</h3>
+                        <p class="text-sm text-gray-500 mt-2" contenteditable="true">Real-world code examples and outputs.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl hover:bg-blue-50 transition-colors">
+                        <span class="text-5xl font-black text-gray-200 block mb-2">04</span>
+                        <h3 class="text-xl font-bold text-gray-800" contenteditable="true">Challenges</h3>
+                        <p class="text-sm text-gray-500 mt-2" contenteditable="true">Common pitfalls and debugging tips.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl hover:bg-blue-50 transition-colors">
+                        <span class="text-5xl font-black text-gray-200 block mb-2">05</span>
+                        <h3 class="text-xl font-bold text-gray-800" contenteditable="true">Live Demo</h3>
+                        <p class="text-sm text-gray-500 mt-2" contenteditable="true">Running a C program in the terminal.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl hover:bg-blue-50 transition-colors border border-blue-200 bg-blue-50/50">
+                        <span class="text-5xl font-black text-blue-200 block mb-2">06</span>
+                        <h3 class="text-xl font-bold text-[#003366]" contenteditable="true">Q&A</h3>
+                        <p class="text-sm text-gray-500 mt-2" contenteditable="true">Discussion and feedback session.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3: BULLET POINTS -->
+            <div class="slide w-full h-full p-12 flex flex-row gap-12" id="slide-3">
+                <div class="w-1/3 flex flex-col justify-center">
+                    <h2 class="text-4xl font-bold text-gray-800 leading-tight mb-4" contenteditable="true">Key Topic Title</h2>
+                    <div class="w-20 h-2 bg-red-600 rounded-full mb-6"></div>
+                    <p class="text-gray-500 text-lg" contenteditable="true">This section explains the core fundamentals of the topic with detailed points.</p>
+                </div>
+                <div class="w-2/3 glass-panel rounded-2xl p-8 shadow-sm flex flex-col justify-center">
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 text-[#003366] flex items-center justify-center font-bold flex-shrink-0">1</div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800" contenteditable="true">Main Concept One</h4>
+                                <p class="text-gray-600" contenteditable="true">Detailed explanation of the first concept goes here. You can edit this text directly.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 text-[#003366] flex items-center justify-center font-bold flex-shrink-0">2</div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800" contenteditable="true">Main Concept Two</h4>
+                                <p class="text-gray-600" contenteditable="true">Second important point about the topic. C Programming is procedural.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 text-[#003366] flex items-center justify-center font-bold flex-shrink-0">3</div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800" contenteditable="true">Main Concept Three</h4>
+                                <p class="text-gray-600" contenteditable="true">Third point covering memory management and pointers.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SLIDE 4: SPLIT IMAGE/TEXT -->
+            <div class="slide w-full h-full p-12 gap-10" id="slide-4">
+                <div class="w-1/2 flex flex-col justify-center">
+                    <span class="text-red-600 font-bold tracking-widest text-sm mb-2 uppercase" contenteditable="true">Visual Analysis</span>
+                    <h2 class="text-4xl font-bold text-[#003366] mb-6" contenteditable="true">System Architecture</h2>
+                    <div class="prose text-gray-600 leading-relaxed" contenteditable="true">
+                        <p class="mb-4">The architecture of C programs relies on the compilation process. The source code is transformed into machine code by the compiler.</p>
+                        <p>This efficiency allows C to run on limited hardware resources, making it ideal for embedded systems.</p>
+                    </div>
+                </div>
+                <div class="w-1/2 h-full bg-gray-200 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-300 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-100 to-transparent opacity-50"></div>
+                    <div class="text-center text-gray-400 group-hover:text-blue-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                        <span class="font-bold">Insert Diagram Here</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 5: CODE BLOCK -->
+            <div class="slide w-full h-full p-12 flex-col" id="slide-5">
+                <div class="flex justify-between items-end mb-6">
+                    <div>
+                        <h2 class="text-3xl font-bold text-[#003366]" contenteditable="true">Code Example</h2>
+                        <p class="text-gray-500" contenteditable="true">Demonstrating basic syntax structure</p>
+                    </div>
+                    <span class="bg-gray-800 text-gray-300 px-3 py-1 rounded text-sm font-mono border border-gray-600">hello.c</span>
+                </div>
+                
+                <div class="w-full flex-1 bg-[#1e1e1e] rounded-xl shadow-2xl overflow-hidden flex flex-col border border-gray-700">
+                    <div class="bg-[#2d2d2d] px-4 py-2 flex items-center gap-2 border-b border-gray-700">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <div class="p-6 overflow-auto">
+                        <pre class="font-mono text-sm leading-relaxed" contenteditable="true">
+<span class="text-purple-400">#include</span> <span class="text-green-400">&lt;stdio.h&gt;</span>
+
+<span class="text-gray-500">// Main Function Entry Point</span>
+<span class="text-blue-400">int</span> <span class="text-yellow-300">main</span>() {
+    <span class="text-blue-400">int</span> studentCount = <span class="text-orange-400">45</span>;
+    <span class="text-blue-400">float</span> avgGrade = <span class="text-orange-400">3.75</span>;
+
+    <span class="text-gray-500">/* Print the result to console */</span>
+    <span class="text-yellow-300">printf</span>(<span class="text-green-400">"Class Size: %d\n"</span>, studentCount);
+    <span class="text-yellow-300">printf</span>(<span class="text-green-400">"Average GPA: %.2f\n"</span>, avgGrade);
+
+    <span class="text-purple-400">if</span> (avgGrade > <span class="text-orange-400">3.5</span>) {
+        <span class="text-yellow-300">printf</span>(<span class="text-green-400">"Excellent Performance!\n"</span>);
+    }
+
+    <span class="text-purple-400">return</span> <span class="text-orange-400">0</span>;
+}
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 6: COMPARISON -->
+            <div class="slide w-full h-full p-12 flex-col" id="slide-6">
+                <h2 class="text-center text-3xl font-bold text-gray-800 mb-10" contenteditable="true">Comparison: Stack vs Heap</h2>
+                
+                <div class="flex gap-8 h-full items-stretch">
+                    <!-- Left Side -->
+                    <div class="flex-1 bg-white rounded-xl p-8 border-t-4 border-blue-600 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-2xl font-bold text-blue-800 mb-4 text-center" contenteditable="true">Stack Memory</h3>
+                        <ul class="space-y-4 text-gray-600" contenteditable="true">
+                            <li class="flex gap-3"><span class="text-blue-500 font-bold">✓</span> Static memory allocation</li>
+                            <li class="flex gap-3"><span class="text-blue-500 font-bold">✓</span> Faster access speed</li>
+                            <li class="flex gap-3"><span class="text-blue-500 font-bold">✓</span> Managed by OS automatically</li>
+                            <li class="flex gap-3"><span class="text-blue-500 font-bold">✓</span> Local variables stored here</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- VS Badge -->
+                    <div class="flex flex-col justify-center">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold text-sm shadow-inner">VS</div>
+                    </div>
+
+                    <!-- Right Side -->
+                    <div class="flex-1 bg-white rounded-xl p-8 border-t-4 border-red-600 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-2xl font-bold text-red-800 mb-4 text-center" contenteditable="true">Heap Memory</h3>
+                        <ul class="space-y-4 text-gray-600" contenteditable="true">
+                            <li class="flex gap-3"><span class="text-red-500 font-bold">✓</span> Dynamic memory allocation</li>
+                            <li class="flex gap-3"><span class="text-red-500 font-bold">✓</span> Slower access speed</li>
+                            <li class="flex gap-3"><span class="text-red-500 font-bold">✓</span> Managed manually (malloc/free)</li>
+                            <li class="flex gap-3"><span class="text-red-500 font-bold">✓</span> Global/Pointer variables</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 7: PROCESS FLOW -->
+            <div class="slide w-full h-full p-12 flex-col" id="slide-7">
+                <h2 class="text-3xl font-bold text-[#003366] mb-12" contenteditable="true">Compilation Process Flow</h2>
+                
+                <div class="flex items-center justify-between h-full px-4 relative">
+                    <!-- Connecting Line -->
+                    <div class="absolute top-1/2 left-0 w-full h-1 bg-gray-200 -z-10 transform -translate-y-1/2"></div>
+                    
+                    <!-- Step 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 w-64 text-center relative group">
+                        <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold absolute -top-5 left-1/2 transform -translate-x-1/2 ring-4 ring-white">1</div>
+                        <h4 class="font-bold text-lg mt-4 text-gray-800" contenteditable="true">Preprocessor</h4>
+                        <p class="text-sm text-gray-500 mt-2" contenteditable="true">Handles directives like #include and #define</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 w-64 text-center relative group">
+                        <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold absolute -top-5 left-1/2 transform -translate-x-1/2 ring-4 ring-white">2</div>
+                        <h4 class="font-bold text-lg mt-4 text-gray-800" contenteditable="true">Compiler</h4>
+                        <p class="text-sm text-gray-500 mt-2" contenteditable="true">Translates C code to Assembly code</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 w-64 text-center relative group">
+                        <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold absolute -top-5 left-1/2 transform -translate-x-1/2 ring-4 ring-white">3</div>
+                        <h4 class="font-bold text-lg mt-4 text-gray-800" contenteditable="true">Assembler</h4>
+                        <p class="text-sm text-gray-500 mt-2" contenteditable="true">Converts Assembly to Object code</p>
+                    </div>
+                    
+                    <!-- Step 4 -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 w-64 text-center relative group">
+                        <div class="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-bold absolute -top-5 left-1/2 transform -translate-x-1/2 ring-4 ring-white">4</div>
+                        <h4 class="font-bold text-lg mt-4 text-gray-800" contenteditable="true">Linker</h4>
+                        <p class="text-sm text-gray-500 mt-2" contenteditable="true">Combines object files into Executable</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 8: 4-QUADRANT GRID -->
+            <div class="slide w-full h-full p-12 flex-col" id="slide-8">
+                <h2 class="text-3xl font-bold text-[#003366] mb-8" contenteditable="true">Data Types Overview</h2>
+                
+                <div class="grid grid-cols-2 grid-rows-2 gap-6 h-full">
+                    <div class="bg-blue-50/80 p-6 rounded-xl border border-blue-100 flex flex-col justify-center">
+                        <h3 class="text-xl font-bold text-blue-900 mb-2" contenteditable="true">Integer (int)</h3>
+                        <p class="text-gray-600" contenteditable="true">Used for whole numbers. Size: 2 or 4 bytes.</p>
+                        <code class="mt-2 text-sm bg-white/50 p-1 rounded inline-block text-blue-800">int x = 10;</code>
+                    </div>
+                    <div class="bg-red-50/80 p-6 rounded-xl border border-red-100 flex flex-col justify-center">
+                        <h3 class="text-xl font-bold text-red-900 mb-2" contenteditable="true">Float (float)</h3>
+                        <p class="text-gray-600" contenteditable="true">Used for numbers with decimals. Size: 4 bytes.</p>
+                        <code class="mt-2 text-sm bg-white/50 p-1 rounded inline-block text-red-800">float pi = 3.14;</code>
+                    </div>
+                    <div class="bg-purple-50/80 p-6 rounded-xl border border-purple-100 flex flex-col justify-center">
+                        <h3 class="text-xl font-bold text-purple-900 mb-2" contenteditable="true">Character (char)</h3>
+                        <p class="text-gray-600" contenteditable="true">Used for single characters. Size: 1 byte.</p>
+                        <code class="mt-2 text-sm bg-white/50 p-1 rounded inline-block text-purple-800">char grade = 'A';</code>
+                    </div>
+                    <div class="bg-emerald-50/80 p-6 rounded-xl border border-emerald-100 flex flex-col justify-center">
+                        <h3 class="text-xl font-bold text-emerald-900 mb-2" contenteditable="true">Double (double)</h3>
+                        <p class="text-gray-600" contenteditable="true">Higher precision decimals. Size: 8 bytes.</p>
+                        <code class="mt-2 text-sm bg-white/50 p-1 rounded inline-block text-emerald-800">double huge = 1.2345;</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 9: BIG QUOTE / CONCLUSION -->
+            <div class="slide w-full h-full p-16 flex flex-col items-center justify-center text-center" id="slide-9">
+                <div class="text-9xl text-blue-100 font-serif leading-none absolute top-12 left-12">“</div>
+                <h2 class="text-4xl md:text-5xl font-bold text-[#003366] leading-tight relative z-10" contenteditable="true">
+                    C makes it easy to shoot yourself in the foot; C++ makes it harder, but when you do it blows your whole leg off.
+                </h2>
+                <div class="mt-12 flex items-center gap-4">
+                    <div class="w-12 h-1 bg-red-500 rounded-full"></div>
+                    <p class="text-xl font-bold text-gray-500 uppercase tracking-widest" contenteditable="true">Bjarne Stroustrup</p>
+                    <div class="w-12 h-1 bg-red-500 rounded-full"></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 10: RESOURCES -->
+            <div class="slide w-full h-full p-12 flex-col" id="slide-10">
+                <h2 class="text-3xl font-bold text-[#003366] mb-8" contenteditable="true">Resources & References</h2>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="flex items-center p-6 border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xl">📚</div>
+                        <div class="ml-6">
+                            <h3 class="text-lg font-bold text-gray-800" contenteditable="true">The C Programming Language</h3>
+                            <p class="text-gray-500" contenteditable="true">Brian Kernighan & Dennis Ritchie - The definitive guide.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-6 border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer">
+                        <div class="w-12 h-12 bg-red-100 text-red-600 rounded-lg flex items-center justify-center text-xl">🌐</div>
+                        <div class="ml-6">
+                            <h3 class="text-lg font-bold text-gray-800" contenteditable="true">GeeksForGeeks / Tutorialspoint</h3>
+                            <p class="text-gray-500" contenteditable="true">Online documentation and problem sets.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-6 border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer">
+                        <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-xl">🏛️</div>
+                        <div class="ml-6">
+                            <h3 class="text-lg font-bold text-gray-800" contenteditable="true">NUB Digital Library</h3>
+                            <p class="text-gray-500" contenteditable="true">Department specific slides and notes.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-6 hover:bg-gray-50 transition-colors cursor-pointer">
+                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-xl">💻</div>
+                        <div class="ml-6">
+                            <h3 class="text-lg font-bold text-gray-800" contenteditable="true">Stack Overflow</h3>
+                            <p class="text-gray-500" contenteditable="true">Community Q&A for debugging specific issues.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 11: Q&A -->
+            <div class="slide w-full h-full p-12 flex-col items-center justify-center relative bg-[#003366] text-white" id="slide-11">
+                <!-- Background Pattern overlay specific to this slide -->
+                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 30px 30px;"></div>
+                
+                <h1 class="text-8xl font-black mb-4 tracking-tighter text-blue-200">?</h1>
+                <h2 class="text-5xl font-bold mb-8 relative z-10">Any Questions?</h2>
+                <div class="h-1 w-24 bg-red-500 rounded-full mb-8"></div>
+                <p class="text-xl text-blue-200 mb-8 max-w-lg text-center">We are happy to answer any queries regarding the project or C programming concepts.</p>
+            </div>
+
+            <!-- SLIDE 12: THANK YOU -->
+            <div class="slide w-full h-full flex flex-col items-center justify-center" id="slide-12">
+                <div class="w-32 h-32 bg-[#003366] rounded-full flex items-center justify-center text-white font-extrabold text-3xl shadow-2xl mb-8 ring-8 ring-blue-50">
+                    NUB
+                </div>
+                <h2 class="text-4xl font-bold text-gray-800 mb-2">Thank You</h2>
+                <p class="text-gray-500 font-medium">Department of Computer Science & Engineering</p>
+                <p class="text-sm text-gray-400 mt-8">© 2023 Northern University Bangladesh</p>
+            </div>
+
+        </div>
+        
+        <!-- Bottom Decoration Line (Persistent) -->
+        <div class="h-1.5 w-full bg-gradient-to-r from-[#003366] via-blue-600 to-[#cc0000] shrink-0"></div>
+
+        <!-- CONTROLS -->
+        <div class="absolute bottom-6 right-6 flex gap-2 z-50">
+            <button onclick="prevSlide()" class="p-3 rounded-full bg-white text-[#003366] hover:bg-gray-50 hover:text-red-600 transition-all shadow-lg border border-gray-100 group">
+                <svg class="w-6 h-6 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <button onclick="nextSlide()" class="p-3 rounded-full bg-[#003366] text-white hover:bg-[#002244] transition-all shadow-lg group">
+                <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </div>
+    </div>
+    
+    <p class="mt-4 text-gray-400 text-xs font-mono">Use <strong>Arrow Keys</strong> to Navigate • Click text to Edit</p>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('slide-counter');
+        const totalSlides = slides.length;
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+            // Update counter with leading zero
+            counter.innerText = `${(currentSlide + 1).toString().padStart(2, '0')} / ${totalSlides}`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
+                prevSlide();
+            }
+        });
+    </script>
+</body>
+</html>

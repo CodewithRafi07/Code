@@ -1,0 +1,7 @@
+===== INVOICE =====
+Customer: rafi
+Branch: Main Branch
+Payment Method: Cash
+Total Paid: 59.40 BDT
+Membership: No
+Loyalty Points: 0

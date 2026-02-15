@@ -1,0 +1,208 @@
+<style>
+    .glowzy-marquee-container * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .glowzy-marquee-container {
+        background-color: #320000;
+        height: 39px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    .glowzy-marquee-track {
+        display: flex;
+        width: max-content;
+        animation: scroll 10s linear infinite;
+    }
+
+    .glowzy-marquee-content {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        font-family: 'Bahnschrift', Arial, sans-serif;
+        font-size: 17px;
+        color: white;
+        flex-shrink: 0;
+    }
+
+    .glowzy-marquee-item {
+        display: flex;
+        align-items: center;
+        margin-right: 60px;
+    }
+
+    .glowzy-marquee-item .glowzy-sparkle-icon {
+        width: 21px;
+        height: 21px;
+        margin-right: 12px;
+        filter: brightness(0) saturate(100%) invert(84%) sepia(94%) saturate(7481%) hue-rotate(360deg) brightness(101%) contrast(105%);
+    }
+
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    /* Mobile Optimization */
+    @media (max-width: 600px) {
+        .glowzy-marquee-container {
+            height: 34px;
+        }
+
+        .glowzy-marquee-content {
+            font-size: 14px;
+        }
+
+        .glowzy-marquee-item {
+            margin-right: 20px;
+        }
+
+        .glowzy-marquee-item .glowzy-sparkle-icon {
+            width: 18px;
+            height: 18px;
+            margin-right: 6px;
+        }
+
+        .glowzy-marquee-track {
+            animation-duration: 12s;
+        }
+    }
+</style>
+
+<div class="glowzy-marquee-container">
+    <div class="glowzy-marquee-track">
+        <!-- Duplicate content for seamless scrolling -->
+        <div class="glowzy-marquee-content">
+            <div class="glowzy-marquee-item">
+                <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR CONFIDENCE.
+            </div>
+            <div class="glowzy-marquee-item">
+                <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR GLOWZY.
+            </div>
+            <div class="glowzy-marquee-item">
+                <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR CONFIDENCE.
+            </div>
+            <div class="glowzy-marquee-item">
+                <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR GLOWZY.
+            </div>
+            <div class="glowzy-marquee-item">
+                <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR CONFIDENCE.
+            </div>
+            <div class="glowzy-marquee-item">
+                <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR GLOWZY.
+            </div>
+        </div>
+
+        <div class="glowzy-marquee-content">
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR CONFIDENCE.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR GLOWZY.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> STAY FASHIONABLE.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> EMBRACE STYLE.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR CONFIDENCE.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR GLOWZY.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> SHINE EVERYWHERE.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> FEEL CONFIDENT.
+    </div>
+</div>
+
+<div class="glowzy-marquee-content">
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR CONFIDENCE.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR GLOWZY.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> STAY FASHIONABLE.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> EMBRACE STYLE.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR CONFIDENCE.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR GLOWZY.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> SHINE EVERYWHERE.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> FEEL CONFIDENT.
+    </div>
+</div>
+
+<div class="glowzy-marquee-content">
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR CONFIDENCE.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR GLOWZY.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> STAY FASHIONABLE.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> EMBRACE STYLE.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR CONFIDENCE.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR GLOWZY.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> SHINE EVERYWHERE.
+    </div>
+    <div class="glowzy-marquee-item">
+        <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> FEEL CONFIDENT.
+    </div>
+</div>
+        <div class="glowzy-marquee-content">
+            <!-- Duplicate again for infinite effect -->
+            <div class="glowzy-marquee-item">
+                <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR CONFIDENCE.
+            </div>
+            <div class="glowzy-marquee-item">
+                <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR GLOWZY.
+            </div>
+            <div class="glowzy-marquee-item">
+                <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR CONFIDENCE.
+            </div>
+            <div class="glowzy-marquee-item">
+                <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR GLOWZY.
+            </div>
+            <div class="glowzy-marquee-item">
+                <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR CONFIDENCE.
+            </div>
+            <div class="glowzy-marquee-item">
+                <img src="https://theglowzy.com/wp-content/uploads/2025/07/sparkle.png" class="glowzy-sparkle-icon"> WEAR GLOWZY.
+            </div>
+        </div>
+    </div>
+</div>

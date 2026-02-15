@@ -1,0 +1,8 @@
+admin 1234 1
+customer 1111 0
+admin 1234 1
+customer 1111 0
+admin 1234 1
+customer 1111 0
+admin 1234 1
+customer 1111 0

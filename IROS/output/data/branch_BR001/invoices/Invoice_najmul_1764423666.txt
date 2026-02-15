@@ -1,0 +1,16 @@
+
+===== IROS - INVOICE =====
+Invoice ID: INV-BR001-1764423666
+Date: Sat Nov 29 19:41:06 2025
+Customer: najmul
+Branch: Main Branch
+Payment Method: Cash
+ID        Name                Price     Qty       Total
+         -----------------------------------------------------------------
+1         A                   19.80     1         19.80          
+-----------------------------------------------------------------
+Subtotal: 19.80 BDT
+Amount Paid: 20.00 BDT
+Change: 0.20 BDT
+Membership: No
+Loyalty Points: 0

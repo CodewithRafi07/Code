@@ -1,0 +1,15 @@
+===== INVOICE =====
+Invoice ID: INV-BR001-1764270073
+Date: Fri Nov 28 01:01:13 2025
+Customer: najmul
+Branch: Main Branch
+Payment Method: Cash
+ID        Name                Price     Qty       Total
+         -----------------------------------------------------------------
+1         A                   19.80     23        455.40         
+-----------------------------------------------------------------
+Subtotal: 455.40 BDT
+Amount Paid: 460.00 BDT
+Change: 4.60 BDT
+Membership: No
+Loyalty Points: 0

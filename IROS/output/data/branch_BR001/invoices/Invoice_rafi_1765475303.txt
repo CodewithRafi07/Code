@@ -1,0 +1,16 @@
+
+===== IROS - INVOICE =====
+Invoice ID: INV-BR001-1765475303
+Date: Thu Dec 11 23:48:23 2025
+Customer: rafi
+Branch: Main Branch
+Payment Method: Cash
+ID        Name                Price     Qty       Total
+         -----------------------------------------------------------------
+1         A                   19.80     10        198.00         
+-----------------------------------------------------------------
+Subtotal: 198.00 BDT
+Amount Paid: 200.00 BDT
+Change: 2.00 BDT
+Membership: No
+Loyalty Points: 0

@@ -1,0 +1,944 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToolKit - All-in-One Student & Professional Utilities</title>
+    <meta name="description" content="Free online tools: Calculator, Currency, Money Manager, CGPA, Study Planner, Formulas & more.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================
+           CSS VARIABLES (THEMING)
+           ============================ */
+        :root {
+            --primary: #4F46E5;
+            --primary-dark: #3730A3;
+            --secondary: #EC4899;
+            --bg-body: #F3F4F6;
+            --bg-card: #FFFFFF;
+            --text-main: #1F2937;
+            --text-muted: #6B7280;
+            --border: #E5E7EB;
+            --success: #10B981;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --font: 'Inter', sans-serif;
+        }
+
+        /* Dark Theme Overrides */
+        [data-theme="dark"] {
+            --primary: #6366F1;
+            --primary-dark: #4338CA;
+            --bg-body: #111827;
+            --bg-card: #1F2937;
+            --text-main: #F9FAFB;
+            --text-muted: #9CA3AF;
+            --border: #374151;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ============================
+           RESET & GLOBAL
+           ============================ */
+        * { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.3s, color 0.3s; }
+        body { font-family: var(--font); background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        button, input, select { font-family: inherit; font-size: 1rem; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; width: 100%; }
+        .hidden { display: none !important; }
+        
+        /* Buttons */
+        .btn { padding: 0.6rem 1.2rem; border-radius: 8px; border: none; cursor: pointer; font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem; transition: transform 0.1s; }
+        .btn:active { transform: scale(0.98); }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-outline { border: 1px solid var(--border); background: transparent; color: var(--text-main); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.875rem; }
+
+        /* ============================
+           HEADER & NAV
+           ============================ */
+        header { background: var(--bg-card); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; }
+        .header-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+        
+        .header-controls { display: flex; gap: 1rem; align-items: center; }
+        .mobile-menu-btn { display: block; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+        
+        /* Sidebar Layout */
+        .main-layout { display: flex; flex-direction: column; gap: 1.5rem; padding: 1.5rem 0; }
+        @media(min-width: 900px) {
+            .mobile-menu-btn { display: none; }
+            .main-layout { flex-direction: row; align-items: flex-start; }
+            .sidebar { width: 260px; flex-shrink: 0; position: sticky; top: 90px; max-height: calc(100vh - 100px); overflow-y: auto; }
+            .content { flex-grow: 1; }
+        }
+
+        .sidebar ul { display: flex; flex-direction: column; gap: 0.5rem; }
+        .sidebar h3 { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin: 1.5rem 0 0.5rem; letter-spacing: 0.05em; }
+        .nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 8px; color: var(--text-muted); cursor: pointer; white-space: nowrap; }
+        .nav-link:hover, .nav-link.active { background: #EEF2FF; color: var(--primary); }
+        [data-theme="dark"] .nav-link:hover, [data-theme="dark"] .nav-link.active { background: rgba(99, 102, 241, 0.1); }
+
+        /* ============================
+           ADVERTISEMENT SLOTS
+           ============================ */
+        .ad-slot {
+            width: 100%; height: 90px; background: var(--bg-card); border: 1px dashed var(--border);
+            display: flex; align-items: center; justify-content: center; color: var(--text-muted);
+            margin: 1.5rem 0; border-radius: var(--radius); overflow: hidden;
+            font-size: 0.875rem; letter-spacing: 0.05em;
+        }
+        .ad-slot.vertical { width: 300px; height: 250px; margin: 0 auto; }
+
+        /* ============================
+           DASHBOARD CARDS
+           ============================ */
+        .grid-tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+        .tool-card {
+            background: var(--bg-card); padding: 1.5rem; border-radius: var(--radius);
+            box-shadow: var(--shadow); border: 1px solid var(--border); cursor: pointer;
+            display: flex; flex-direction: column; gap: 1rem;
+        }
+        .tool-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+        .tool-icon { width: 48px; height: 48px; background: #EEF2FF; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary); }
+
+        /* ============================
+           COMMON FORM ELEMENTS
+           ============================ */
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .input-group { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 1rem; }
+        .input-group label { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); }
+        .input-field { padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-body); color: var(--text-main); width: 100%; }
+        
+        /* ============================
+           MODULE SPECIFIC STYLES
+           ============================ */
+        
+        /* Calculator */
+/* Calculator wrapper */
+.calc-wrapper {
+    max-width: 420px;
+    margin: auto;
+    background: #264667;
+    padding: 1rem;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* Display */
+.calc-display {
+    background: #0f172a;
+    color: #f8fafc;
+    font-size: 2.2rem;
+    padding: 1rem;
+    border-radius: 14px;
+    border: #4338CA;
+    text-align: right;
+    margin-bottom: 1rem;
+}
+
+/* Grid base */
+.calc-grid {
+    display: grid;
+    gap: 0.6rem;
+}
+
+/* Buttons */
+.calc-grid button {
+    padding: 0.9rem;
+    font-size: 1.05rem;
+    border-radius: 14px;
+    border: #38bdf8;
+    cursor: -webkit-grabbing;
+    transition: all 0.15s ease;
+}
+
+/* Number buttons */
+.calc-grid button:not(.op):not(.eq):not(.sci-btn) {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+/* Operators */
+.op {
+    background: #38bdf8;
+    color: #003049;
+    font-weight: 600;
+}
+
+/* Scientific buttons */
+.sci-btn {
+    background: #c8113f;
+    color: #4c1d95;
+    font-weight: 600;
+}
+
+/* Equals */
+.eq {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+/* Clear / Delete */
+.calc-grid button:nth-child(1),
+.calc-grid button:nth-child(2) {
+    background: #fee2e2;
+    color: #991b1b;
+    font-weight: 600;
+}
+
+/* Hover effect */
+.calc-grid button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+}
+
+/* Active press */
+.calc-grid button:active {
+    transform: scale(0.96);
+}
+
+/* Zero & equal sizing (if used) */
+.zero {
+    grid-column: span 2;
+}
+
+/* Scientific grid */
+.sci-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* ⭐ MUST */
+    gap: 0.6rem;
+    margin-bottom: 0.8rem;
+}
+
+.sci-grid button {
+    background: #ede9fe;
+    color: #4c1d95;
+}
+
+
+/* Mobile optimization */
+@media (max-width: 480px) {
+    .calc-display {
+        font-size: 1.7rem;
+    }
+    .calc-grid button {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+}
+
+
+
+        /* Money Manager */
+        .money-layout { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        @media(min-width: 900px) { .money-layout { grid-template-columns: 2fr 1fr; } }
+        .balance-card { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 2rem; border-radius: var(--radius); text-align: center; margin-bottom: 1.5rem; }
+        .trans-item { display: flex; justify-content: space-between; padding: 1rem; background: var(--bg-card); border-bottom: 1px solid var(--border); }
+        .trans-item.inc { border-left: 4px solid var(--success); }
+        .trans-item.exp { border-left: 4px solid var(--danger); }
+
+        /* CGPA */
+        .cgpa-row { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 1rem; margin-bottom: 0.75rem; align-items: center; }
+        .cgpa-result { text-align: center; margin-top: 2rem; padding: 2rem; background: var(--bg-body); border-radius: var(--radius); }
+        .cgpa-val { font-size: 3rem; font-weight: 800; color: var(--primary); }
+
+        /* Study Planner */
+        .timetable-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+        .day-column { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; min-height: 200px; }
+        .day-header { font-weight: bold; margin-bottom: 0.5rem; text-align: center; color: var(--primary); border-bottom: 2px solid var(--bg-body); padding-bottom: 0.5rem; }
+        .task-chip { background: #EEF2FF; color: var(--primary-dark); padding: 0.4rem; border-radius: 4px; font-size: 0.85rem; margin-bottom: 0.5rem; text-align: center; border-left: 3px solid var(--primary); }
+        
+        /* Attendance */
+        .progress-bar-container { height: 20px; background: #E5E7EB; border-radius: 10px; overflow: hidden; margin: 1rem 0; }
+        .progress-bar { height: 100%; transition: width 0.5s; }
+        
+        /* Formula Sheet */
+        .formula-category { margin-bottom: 1.5rem; border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; background: var(--bg-card); }
+        .formula-item { padding: 0.75rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .formula-item:last-child { border-bottom: none; }
+        .formula-math { font-family: 'Times New Roman', serif; font-style: italic; font-size: 1.1rem; }
+
+        /* Unit Converter */
+        .unit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-inner">
+            <div class="logo" onclick="showPage('home')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                ToolKit
+            </div>
+
+            <div class="header-controls">
+                <select id="langSwitch" onchange="changeLanguage()" style="padding: 0.4rem; border-radius: 6px; border: 1px solid var(--border);">
+                    <option value="en">English</option>
+                    <option value="bn">বাংলা</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="ur">اردو</option>
+                </select>
+                <button class="btn btn-outline" onclick="toggleTheme()" id="themeBtn">🌙</button>
+                <button class="btn btn-primary" id="authBtn" onclick="showPage('login')">Login</button>
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Global Ad -->
+    <div class="container">
+        <div class="ad-slot">Top Leaderboard Ad</div>
+    </div>
+
+    <div class="container main-layout">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <nav class="sidebar hidden" id="sidebar">
+            <ul>
+                <li class="nav-link active" onclick="showPage('home')" id="lnk-home">🏠 Dashboard</li>
+                <li class="nav-link" onclick="showPage('calculator')" id="lnk-calc">🧮 Calculator</li>
+                <li class="nav-link" onclick="showPage('currency')" id="lnk-curr">💱 Currency</li>
+                <li class="nav-link" onclick="showPage('money')" id="lnk-money">💰 Money Manager</li>
+                <li class="nav-link" onclick="showPage('cgpa')" id="lnk-cgpa">🎓 CGPA Calc</li>
+                
+                <h3>Student Tools</h3>
+                <li class="nav-link" onclick="showPage('study-planner')" id="lnk-planner">📅 Study Planner</li>
+                <li class="nav-link" onclick="showPage('grade-conv')" id="lnk-grade">📊 Grade Converter</li>
+                <li class="nav-link" onclick="showPage('attendance')" id="lnk-attend">✅ Attendance</li>
+                <li class="nav-link" onclick="showPage('unit-conv')" id="lnk-unit">📏 Unit Converter</li>
+                <li class="nav-link" onclick="showPage('formulas')" id="lnk-formula">📜 Formula Sheet</li>
+            </ul>
+        </nav>
+
+        <!-- CONTENT AREA -->
+        <main class="content">
+            
+            <!-- HOME DASHBOARD -->
+            <section id="page-home" class="page">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <h1>Your Digital Toolbox</h1>
+                    <p style="color: var(--text-muted);">Calculators, Converters, and Planners for Students & Professionals.</p>
+                </div>
+                <div class="grid-tools">
+                    <div class="tool-card" onclick="showPage('calculator')"><div class="tool-icon">🧮</div><h3>Advanced Calculator</h3></div>
+                    <div class="tool-card" onclick="showPage('currency')"><div class="tool-icon">💱</div><h3>Currency Converter</h3></div>
+                    <div class="tool-card" onclick="showPage('money')"><div class="tool-icon">💰</div><h3>Money Manager</h3></div>
+                    <div class="tool-card" onclick="showPage('cgpa')"><div class="tool-icon">🎓</div><h3>CGPA Calculator</h3></div>
+                    <div class="tool-card" onclick="showPage('study-planner')"><div class="tool-icon">📅</div><h3>Study Planner</h3></div>
+                    <div class="tool-card" onclick="showPage('grade-conv')"><div class="tool-icon">📊</div><h3>Grade Converter</h3></div>
+                    <div class="tool-card" onclick="showPage('attendance')"><div class="tool-icon">✅</div><h3>Attendance Calc</h3></div>
+                    <div class="tool-card" onclick="showPage('unit-conv')"><div class="tool-icon">📏</div><h3>Unit Converter</h3></div>
+                    <div class="tool-card" onclick="showPage('formulas')"><div class="tool-icon">📜</div><h3>Formula Sheet</h3></div>
+                </div>
+            </section>
+
+            <!-- CALCULATOR -->
+            <!-- SCIENTIFIC CALCULATOR -->
+<section id="page-calculator" class="page hidden">
+    <div class="section-header">
+        <h2>Calculator</h2>
+        <div class="calc-mode-toggles">
+            <button class="btn btn-sm btn-outline" onclick="setCalcMode('std')">Std</button>
+            <button class="btn btn-sm btn-outline" onclick="setCalcMode('sci')">Sci</button>
+        </div>
+    </div>
+
+    <div class="calc-wrapper">
+        <input type="text" id="calc-display" class="calc-display" value="0" readonly>
+
+        <!-- Scientific Row -->
+        <div class="calc-grid sci-grid hidden" id="sci-grid">
+            <button onclick="calcFn('sin')">sin</button>
+            <button onclick="calcFn('cos')">cos</button>
+            <button onclick="calcFn('tan')">tan</button>
+            <button onclick="calcFn('log')">log</button>
+            <button onclick="calcFn('ln')">ln</button>
+            <button onclick="calcFn('sqrt')">√</button>
+            <button onclick="insertVal('Math.PI')">π</button>
+            <button onclick="insertVal('Math.E')">e</button>
+            <button onclick="insertVal('**')">xʸ</button>
+            <button onclick="insertVal('(')">(</button>
+            <button onclick="insertVal(')')">)</button>
+
+        </div>
+
+        <!-- Main Grid -->
+        <div class="calc-grid main-grid">
+            <button onclick="clearCalc()">C</button>
+            <button onclick="deleteChar()">DEL</button>
+            <button onclick="insertVal('/')">÷</button>
+            <button onclick="insertVal('*')">×</button>
+
+            <button onclick="insertVal('7')">7</button>
+            <button onclick="insertVal('8')">8</button>
+            <button onclick="insertVal('9')">9</button>
+            <button onclick="insertVal('-')">−</button>
+
+            <button onclick="insertVal('4')">4</button>
+            <button onclick="insertVal('5')">5</button>
+            <button onclick="insertVal('6')">6</button>
+            <button onclick="insertVal('+')">+</button>
+
+            <button onclick="insertVal('1')">1</button>
+            <button onclick="insertVal('2')">2</button>
+            <button onclick="insertVal('3')">3</button>
+            <button class="eq" onclick="calculate()">=</button>
+
+            <button class="zero" onclick="insertVal('0')">0</button>
+            <button onclick="insertVal('.')">.</button>
+        </div>
+    </div>
+
+    <div id="calc-ad" class="ad-slot hidden">Ad after calculation</div>
+</section>
+
+            <!-- CURRENCY -->
+            <section id="page-currency" class="page hidden">
+                <h2>Currency Converter</h2>
+                <div class="calc-wrapper" style="max-width:500px;">
+                    <div class="unit-grid">
+                        <div class="input-group"><label>Amount</label><input type="number" id="curr-amount" class="input-field" value="1" oninput="convertCurrency()"></div>
+                        <div class="input-group"><label>From</label><select id="curr-from" class="input-field" onchange="convertCurrency()"><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option><option value="BDT">BDT</option><option value="INR">INR</option></select></div>
+                    </div>
+                    <div style="text-align:center; margin:1rem;"><button class="btn btn-sm btn-outline" onclick="swapCurrency()">⇄</button></div>
+                    <div class="input-group"><label>To</label><select id="curr-to" class="input-field" onchange="convertCurrency()"><option value="USD">USD</option><option value="EUR" selected>EUR</option><option value="GBP">GBP</option><option value="BDT">BDT</option><option value="INR">INR</option></select></div>
+                    <div style="margin-top:2rem; text-align:center; font-size:1.5rem; font-weight:bold;" id="curr-result">...</div>
+                </div>
+            </section>
+
+            <!-- MONEY MANAGER -->
+            <section id="page-money" class="page hidden">
+                <h2>Money Manager</h2>
+                <div class="money-layout">
+                    <div>
+                        <div class="balance-card"><p>Balance</p><div class="balance-amount" style="font-size:2.5rem;" id="money-balance">$0.00</div></div>
+                        <div style="background:var(--bg-card); padding:1.5rem; border-radius:var(--radius); border:1px solid var(--border);">
+                            <div class="input-group"><label>Description</label><input type="text" id="t-desc" class="input-field"></div>
+                            <div class="unit-grid"><div class="input-group"><label>Amount</label><input type="number" id="t-amount" class="input-field"></div><div class="input-group"><label>Type</label><select id="t-type" class="input-field"><option value="income">Income</option><option value="expense">Expense</option></select></div></div>
+                            <button class="btn btn-primary" style="width:100%" onclick="addTransaction()">Add Transaction</button>
+                        </div>
+                        <div style="margin-top:2rem;"><h3>History</h3><div id="t-list" style="margin-top:1rem; max-height:300px; overflow-y:auto;"></div></div>
+                    </div>
+                    <div><div class="ad-slot vertical">Ad Unit</div></div>
+                </div>
+            </section>
+
+            <!-- CGPA -->
+            <section id="page-cgpa" class="page hidden">
+                <h2>CGPA Calculator</h2>
+                <div class="cgpa-container" style="max-width:700px; margin:0 auto; background:var(--bg-card); padding:2rem; border-radius:var(--radius);">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:1rem;"><strong>Subjects</strong><button class="btn btn-sm btn-outline" onclick="addSubjectRow()">+ Add</button></div>
+                    <div id="cgpa-rows">
+                        <div class="cgpa-row"><input type="text" class="input-field" placeholder="Subject"><input type="number" class="input-field cgpa-credit" placeholder="Credits"><select class="input-field cgpa-grade"><option value="4.0">A+</option><option value="4.0">A</option><option value="3.5">B+</option><option value="3.0">B</option></select></div>
+                    </div>
+                    <button class="btn btn-primary" style="width:100%; margin-top:1.5rem;" onclick="calculateCGPA()">Calculate</button>
+                    <div id="cgpa-result" class="cgpa-result hidden"><div class="cgpa-val" id="final-cgpa">0.00</div></div>
+                    <div id="cgpa-ad" class="ad-slot hidden">Ad after Result</div>
+                </div>
+            </section>
+
+            <!-- NEW: STUDY PLANNER -->
+            <section id="page-study-planner" class="page hidden">
+                <div class="section-header"><h2>Study Planner & Timetable</h2></div>
+                <div style="background:var(--bg-card); padding:1.5rem; border-radius:var(--radius); border:1px solid var(--border);">
+                    <div class="unit-grid">
+                        <div class="input-group"><label>Subject Name</label><input type="text" id="sp-name" class="input-field" placeholder="e.g. Mathematics"></div>
+                        <div class="input-group"><label>Priority (1=High)</label><select id="sp-priority" class="input-field"><option value="3">High</option><option value="2">Medium</option><option value="1">Low</option></select></div>
+                    </div>
+                    <button class="btn btn-primary" onclick="addStudySubject()">Add Subject</button>
+                    <div style="margin-top:1rem;" id="sp-list"></div>
+                    <button class="btn btn-outline" style="width:100%; margin-top:1.5rem;" onclick="generateTimetable()">Generate Timetable</button>
+                </div>
+                <div id="sp-output" style="margin-top:2rem;"></div>
+                <div id="sp-ad" class="ad-slot hidden">Ad after Generation</div>
+            </section>
+
+            <!-- NEW: GRADE CONVERTER -->
+            <section id="page-grade-conv" class="page hidden">
+                <h2>Grade ↔ Percentage Converter</h2>
+                <div class="calc-wrapper" style="max-width:500px;">
+                    <div style="display:flex; gap:1rem; margin-bottom:1rem;">
+                        <button class="btn btn-primary" style="flex:1" id="btn-gpa-perc" onclick="setGradeMode('gpa-perc')">GPA to %</button>
+                        <button class="btn btn-outline" style="flex:1" id="btn-perc-gpa" onclick="setGradeMode('perc-gpa')">% to GPA</button>
+                    </div>
+                    <div class="input-group"><label>Grading Scale</label><select id="gc-scale" class="input-field"><option value="4.0">4.0 Scale</option><option value="5.0">5.0 Scale</option><option value="10.0">10.0 Scale</option></select></div>
+                    <div class="input-group"><label id="gc-label">Enter GPA</label><input type="number" id="gc-input" class="input-field" step="0.01"></div>
+                    <button class="btn btn-primary" style="width:100%" onclick="convertGrade()">Convert</button>
+                    <div style="margin-top:2rem; text-align:center; font-size:1.5rem; font-weight:bold;" id="gc-result"></div>
+                    <div id="gc-ad" class="ad-slot hidden">Ad after Conversion</div>
+                </div>
+            </section>
+
+            <!-- NEW: ATTENDANCE CALCULATOR -->
+            <section id="page-attendance" class="page hidden">
+                <h2>Attendance Calculator</h2>
+                <div class="calc-wrapper" style="max-width:500px;">
+                    <div class="input-group"><label>Total Classes Conducted</label><input type="number" id="att-total" class="input-field" oninput="calcAttendance()"></div>
+                    <div class="input-group"><label>Classes Attended</label><input type="number" id="att-attended" class="input-field" oninput="calcAttendance()"></div>
+                    <div class="input-group"><label>Required %</label><input type="number" id="att-req" class="input-field" value="75" oninput="calcAttendance()"></div>
+                    
+                    <div id="att-res-box" style="display:none; margin-top:1.5rem;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>Current: <strong id="att-curr-pct">0%</strong></span></div>
+                        <div class="progress-bar-container"><div class="progress-bar" id="att-bar" style="width:0%; background:var(--success);"></div></div>
+                        <p style="margin-top:1rem; text-align:center;" id="att-msg">Result will appear here</p>
+                    </div>
+                    <div id="att-ad" class="ad-slot hidden">Ad after Calculation</div>
+                </div>
+            </section>
+
+            <!-- NEW: UNIT CONVERTER -->
+            <section id="page-unit-conv" class="page hidden">
+                <h2>Academic Unit Converter</h2>
+                <div class="calc-wrapper" style="max-width:500px;">
+                    <div class="input-group"><label>Category</label><select id="uc-cat" class="input-field" onchange="loadUnits()"><option value="length">Length (m, km, cm...)</option><option value="weight">Weight (kg, g, lb...)</option><option value="temp">Temperature (C, F, K)</option></select></div>
+                    <div class="unit-grid">
+                        <div class="input-group"><label>Value</label><input type="number" id="uc-val" class="input-field" value="1" oninput="convertUnit()"></div>
+                        <div class="input-group"><label>Unit</label><select id="uc-from" class="input-field" onchange="convertUnit()"></select></div>
+                    </div>
+                    <div style="text-align:center; margin:1rem;">↓</div>
+                    <div class="input-group"><label>Converted To</label><select id="uc-to" class="input-field" onchange="convertUnit()"></select></div>
+                    <div style="margin-top:2rem; text-align:center; font-size:1.5rem; font-weight:bold;" id="uc-result">0</div>
+                    <div id="uc-ad" class="ad-slot hidden">Ad after Conversion</div>
+                </div>
+            </section>
+
+            <!-- NEW: FORMULA SHEET -->
+            <section id="page-formulas" class="page hidden">
+                <div class="section-header"><h2>Formula Sheet Generator</h2></div>
+                <div style="background:var(--bg-card); padding:1.5rem; border-radius:var(--radius); border:1px solid var(--border); margin-bottom:2rem;">
+                    <div class="unit-grid">
+                        <div class="input-group"><label>Subject</label><select id="fs-subject" class="input-field"><option value="math">Mathematics</option><option value="phy">Physics</option><option value="chem">Chemistry</option></select></div>
+                        <div class="input-group"><label>Topic (Filter)</label><select id="fs-topic" class="input-field"><option value="all">All Topics</option></select></div>
+                    </div>
+                    <div style="display:flex; gap:1rem; margin-top:1rem;">
+                        <button class="btn btn-primary" onclick="generateFormulas()">Generate Sheet</button>
+                        <button class="btn btn-outline" onclick="alert('Mock PDF Download initiated')">Download PDF</button>
+                    </div>
+                </div>
+                <div id="fs-output" style="min-height:200px;"></div>
+                <div id="fs-ad" class="ad-slot hidden">Ad after Generation</div>
+            </section>
+
+            <!-- LOGIN -->
+            <section id="page-login" class="page hidden">
+                <div class="calc-wrapper" style="text-align:center;"><h2>Login</h2><div class="input-group" style="margin-top:1rem;"><input type="email" id="login-email" class="input-field" placeholder="user@gmail.com"></div><button class="btn btn-primary" style="width:100%; margin-top:1rem;" onclick="loginUser()">Login</button></div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Global State
+        let isLoggedIn = false;
+        let isDarkMode = false;
+        let transactions = JSON.parse(localStorage.getItem('tk_trans')) || [];
+        let studySubjects = [];
+        let gradeMode = 'gpa-perc';
+
+        // Navigation
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(el => el.classList.add('hidden'));
+            document.getElementById('page-' + id).classList.remove('hidden');
+            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+            const nav = document.getElementById('lnk-' + id);
+            if(nav) nav.classList.add('active');
+            
+            // Mobile Sidebar Close
+            if(window.innerWidth < 900) document.getElementById('sidebar').classList.add('hidden');
+            window.scrollTo(0,0);
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('hidden');
+        }
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+            document.getElementById('themeBtn').innerText = isDarkMode ? '☀️' : '🌙';
+        }
+
+        function changeLanguage() {
+            alert("Language switcher (Demo)");
+        }
+
+        function loginUser() {
+            const email = document.getElementById('login-email').value;
+            if(email && email.includes('@')) {
+                isLoggedIn = true;
+                document.getElementById('authBtn').innerText = "User";
+                document.getElementById('authBtn').classList.replace('btn-primary', 'btn-outline');
+                showPage('home');
+            } else {
+                alert("Invalid email");
+            }
+        }
+
+        /* ============================
+           CALCULATOR LOGIC
+           ============================ */
+        let calcMode = 'std';
+const display = document.getElementById('calc-display');
+
+function setCalcMode(mode) {
+    calcMode = mode;
+    document.getElementById('sci-grid')
+        .classList.toggle('hidden', mode !== 'sci');
+}
+
+function insertVal(val) {
+    if (display.value === "0") {
+        display.value = "";
+        calcExpression = "";
+    }
+    display.value += val;
+    calcExpression += val;
+}
+
+
+function clearCalc() {
+    display.value = "0";
+    calcExpression = "";
+}
+
+function deleteChar() {
+    display.value = display.value.slice(0, -1) || "0";
+    calcExpression = calcExpression.slice(0, -1);
+}
+
+
+function calculate() {
+    try {
+        let exp = calcExpression;
+
+        const open = (exp.match(/\(/g) || []).length;
+        const close = (exp.match(/\)/g) || []).length;
+        exp += ')'.repeat(open - close);
+
+        display.value = eval(exp);
+        calcExpression = display.value.toString();
+    } catch {
+        display.value = "Error";
+        calcExpression = "";
+    }
+}
+
+
+
+function calcFn(fn) {
+    if (display.value === "0") {
+        display.value = "";
+        calcExpression = "";
+    }
+
+    switch (fn) {
+        case 'sin':
+            display.value += 'sin(';
+            calcExpression += 'Math.sin(';
+            break;
+
+        case 'cos':
+            display.value += 'cos(';
+            calcExpression += 'Math.cos(';
+            break;
+
+        case 'tan':
+            display.value += 'tan(';
+            calcExpression += 'Math.tan(';
+            break;
+
+        case 'log':
+            display.value += 'log(';
+            calcExpression += 'Math.log10(';
+            break;
+
+        case 'ln':
+            display.value += 'ln(';
+            calcExpression += 'Math.log(';
+            break;
+
+        case 'sqrt':
+            display.value += '√(';
+            calcExpression += 'Math.sqrt(';
+            break;
+    }
+}
+
+
+
+
+
+        /* ============================
+           CURRENCY LOGIC
+           ============================ */
+        const rates = { USD:1, EUR:0.92, GBP:0.79, BDT:110.5, INR:83.1 };
+        function convertCurrency() {
+            const amt = parseFloat(document.getElementById('curr-amount').value);
+            const f = document.getElementById('curr-from').value;
+            const t = document.getElementById('curr-to').value;
+            document.getElementById('curr-result').innerText = ((amt/rates[f])*rates[t]).toFixed(2) + " " + t;
+        }
+        function swapCurrency() {
+            const f = document.getElementById('curr-from'); const t = document.getElementById('curr-to');
+            let temp = f.value; f.value = t.value; t.value = temp; convertCurrency();
+        }
+
+        /* ============================
+           MONEY MANAGER LOGIC
+           ============================ */
+        function addTransaction() {
+            const desc = document.getElementById('t-desc').value;
+            const amt = parseFloat(document.getElementById('t-amount').value);
+            const type = document.getElementById('t-type').value;
+            if(!desc || isNaN(amt)) return;
+            transactions.push({desc, amt, type});
+            updateMoneyUI();
+            document.getElementById('t-desc').value=""; document.getElementById('t-amount').value="";
+        }
+        function updateMoneyUI() {
+            const list = document.getElementById('t-list'); list.innerHTML="";
+            let bal=0;
+            transactions.forEach((t,i) => {
+                if(t.type==='income') bal+=t.amt; else bal-=t.amt;
+                const d = document.createElement('div'); d.className=`trans-item ${t.type}`;
+                d.innerHTML=`<span>${t.desc}</span><span>${t.type==='inc'?'+':'-'}${t.amt}</span>`;
+                list.appendChild(d);
+            });
+            document.getElementById('money-balance').innerText = "$" + bal.toFixed(2);
+            localStorage.setItem('tk_trans', JSON.stringify(transactions));
+        }
+
+        /* ============================
+           CGPA LOGIC
+           ============================ */
+        function addSubjectRow() {
+            const div = document.createElement('div'); div.className='cgpa-row';
+            div.innerHTML=`<input type="text" class="input-field" placeholder="Sub"><input type="number" class="input-field cgpa-credit" placeholder="Cr"><select class="input-field cgpa-grade"><option value="4.0">A</option><option value="3.5">B+</option><option value="3.0">B</option></select><button class="btn btn-danger btn-sm" onclick="this.parentElement.remove()">X</button>`;
+            document.getElementById('cgpa-rows').appendChild(div);
+        }
+        function calculateCGPA() {
+            const cr = document.querySelectorAll('.cgpa-credit'); const gr = document.querySelectorAll('.cgpa-grade');
+            let tp=0, tc=0;
+            cr.forEach((c,i)=>{ let v=parseFloat(c.value); if(!isNaN(v)){tc+=v; tp+=v*parseFloat(gr[i].value);}});
+            if(tc===0) return;
+            document.getElementById('final-cgpa').innerText = (tp/tc).toFixed(2);
+            document.getElementById('cgpa-result').classList.remove('hidden');
+            document.getElementById('cgpa-ad').classList.remove('hidden');
+        }
+
+        /* ============================
+           NEW: STUDY PLANNER LOGIC
+           ============================ */
+        function addStudySubject() {
+            const name = document.getElementById('sp-name').value;
+            const prio = parseInt(document.getElementById('sp-priority').value);
+            if(!name) return;
+            studySubjects.push({name, prio, id:Date.now()});
+            document.getElementById('sp-name').value = "";
+            renderStudyList();
+        }
+        function renderStudyList() {
+            const div = document.getElementById('sp-list'); div.innerHTML = "";
+            studySubjects.forEach((s,i) => {
+                div.innerHTML += `<div style="display:flex; justify-content:space-between; padding:0.5rem; border-bottom:1px solid var(--border);">${s.name} (Prio: ${s.prio}) <span style="color:red; cursor:pointer;" onclick="removeStudy(${i})">x</span></div>`;
+            });
+        }
+        function removeStudy(i) { studySubjects.splice(i,1); renderStudyList(); }
+        function generateTimetable() {
+    if (studySubjects.length === 0) {
+        alert("Add subjects first.");
+        return;
+    }
+
+    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const SLOTS_PER_DAY = 5;
+
+    // Sort by priority (High → Low)
+    const sorted = [...studySubjects].sort((a, b) => b.prio - a.prio);
+
+    let html = '<div class="timetable-grid">';
+
+    days.forEach((day, dayIndex) => {
+        html += `
+            <div class="day-column">
+                <div class="day-header">${day}</div>
+        `;
+
+        // Fill exactly 5 slots per day
+        for (let slot = 0; slot < SLOTS_PER_DAY; slot++) {
+            const subject = sorted[(dayIndex * SLOTS_PER_DAY + slot) % sorted.length];
+            html += `<div class="task-chip">${subject.name}</div>`;
+        }
+
+        html += `</div>`;
+    });
+
+    html += '</div>';
+
+    document.getElementById('sp-output').innerHTML = html;
+    document.getElementById('sp-ad').classList.remove('hidden');
+}
+
+
+        /* ============================
+           NEW: GRADE CONVERTER LOGIC
+           ============================ */
+        function setGradeMode(m) {
+            gradeMode = m;
+            document.getElementById('btn-gpa-perc').className = m==='gpa-perc' ? 'btn btn-primary' : 'btn btn-outline';
+            document.getElementById('btn-perc-gpa').className = m==='perc-gpa' ? 'btn btn-primary' : 'btn btn-outline';
+            document.getElementById('gc-label').innerText = m==='gpa-perc' ? 'Enter GPA' : 'Enter Percentage';
+        }
+        function convertGrade() {
+            const scale = parseFloat(document.getElementById('gc-scale').value);
+            const val = parseFloat(document.getElementById('gc-input').value);
+            if(isNaN(val)) return;
+            let res = 0;
+            if(gradeMode === 'gpa-perc') res = (val / scale) * 100;
+            else res = (val / 100) * scale;
+            document.getElementById('gc-result').innerText = res.toFixed(2);
+            document.getElementById('gc-ad').classList.remove('hidden');
+        }
+
+        /* ============================
+           NEW: ATTENDANCE LOGIC
+           ============================ */
+        function calcAttendance() {
+            const total = parseFloat(document.getElementById('att-total').value);
+            const att = parseFloat(document.getElementById('att-attended').value);
+            const req = parseFloat(document.getElementById('att-req').value);
+            
+            if(!total || !att) { document.getElementById('att-res-box').style.display='none'; return; }
+            
+            const current = (att/total)*100;
+            document.getElementById('att-curr-pct').innerText = current.toFixed(2) + "%";
+            document.getElementById('att-bar').style.width = Math.min(current, 100) + "%";
+            document.getElementById('att-bar').style.background = current >= req ? 'var(--success)' : 'var(--danger)';
+            
+            // Logic
+            const reqAtt = Math.ceil((req/100)*total);
+            let msg = "";
+            if(att >= reqAtt) {
+                const bunk = Math.floor((att - reqAtt) / (req/100)); // Rough approx
+                msg = `On Track! You can miss roughly ${bunk} classes (approx).`;
+            } else {
+                const needed = reqAtt - att;
+                msg = `⚠️ You need to attend <strong>${needed}</strong> more classes to reach ${req}%.`;
+            }
+            
+            document.getElementById('att-msg').innerHTML = msg;
+            document.getElementById('att-res-box').style.display = 'block';
+            document.getElementById('att-ad').classList.remove('hidden');
+        }
+
+        /* ============================
+           NEW: UNIT CONVERTER LOGIC
+           ============================ */
+        const units = {
+            length: { 'm':1, 'km':1000, 'cm':0.01, 'mm':0.001, 'ft':0.3048, 'in':0.0254 },
+            weight: { 'kg':1, 'g':0.001, 'lb':0.453592, 'oz':0.0283495 },
+            temp: {} // Special case
+        };
+        
+        function loadUnits() {
+            const cat = document.getElementById('uc-cat').value;
+            const selFrom = document.getElementById('uc-from'); const selTo = document.getElementById('uc-to');
+            selFrom.innerHTML = ""; selTo.innerHTML = "";
+            
+            if(cat === 'temp') {
+                ['Celsius', 'Fahrenheit', 'Kelvin'].forEach(u => { selFrom.add(new Option(u, u)); selTo.add(new Option(u, u)); });
+            } else {
+                for(let u in units[cat]) { selFrom.add(new Option(u, u)); selTo.add(new Option(u, u)); }
+            }
+            convertUnit();
+        }
+
+        function convertUnit() {
+            const cat = document.getElementById('uc-cat').value;
+            const val = parseFloat(document.getElementById('uc-val').value);
+            const from = document.getElementById('uc-from').value;
+            const to = document.getElementById('uc-to').value;
+            let res = 0;
+
+            if(cat === 'temp') {
+                // Base conversion to Celsius then to target
+                let c = 0;
+                if(from === 'Celsius') c = val;
+                else if(from === 'Fahrenheit') c = (val - 32) * 5/9;
+                else if(from === 'Kelvin') c = val - 273.15;
+
+                if(to === 'Celsius') res = c;
+                else if(to === 'Fahrenheit') res = (c * 9/5) + 32;
+                else if(to === 'Kelvin') res = c + 273.15;
+            } else {
+                // Factor based
+                const base = val * units[cat][from];
+                res = base / units[cat][to];
+            }
+
+            document.getElementById('uc-result').innerText = res.toFixed(4);
+            document.getElementById('uc-ad').classList.remove('hidden');
+        }
+
+        /* ============================
+           NEW: FORMULA SHEET LOGIC
+           ============================ */
+        const formulaDB = {
+            math: [
+                {t: "Algebra", f: "x = (-b ± √(b² - 4ac)) / 2a"},
+                {t: "Geometry", f: "Area Circle = πr²"},
+                {t: "Geometry", f: "Pythagoras: a² + b² = c²"},
+                {t: "Calculus", f: "d/dx(xⁿ) = nxⁿ⁻¹"}
+            ],
+            phy: [
+                {t: "Motion", f: "v = u + at"},
+                {t: "Motion", f: "s = ut + ½at²"},
+                {t: "Force", f: "F = ma"},
+                {t: "Energy", f: "KE = ½mv²"}
+            ],
+            chem: [
+                {t: "Ideal Gas", f: "PV = nRT"},
+                {t: "Moles", f: "n = m/M"},
+                {t: "Concentration", f: "M = mol/L"}
+            ]
+        };
+
+        function generateFormulas() {
+            const sub = document.getElementById('fs-subject').value;
+            const topic = document.getElementById('fs-topic').value; // Simplified mock topic filter
+            const container = document.getElementById('fs-output');
+            container.innerHTML = "";
+
+            const list = formulaDB[sub];
+            
+            let html = `<div class="formula-category"><h3>${sub.toUpperCase()} Formulas</h3>`;
+            list.forEach(item => {
+                html += `<div class="formula-item"><span>${item.t}</span><span class="formula-math">${item.f}</span></div>`;
+            });
+            html += `</div>`;
+            
+            container.innerHTML = html;
+            document.getElementById('fs-ad').classList.remove('hidden');
+        }
+
+        // Init
+        loadUnits();
+        updateMoneyUI();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+/*Name: Md Rafi Khan
+ID: 41240302538
+Lab No: Lab_3
+Course Code: CSE 1360*/
+
+/*Question 1: Friend Class and Friend Function
+
+ * Friend Function in C++
+
+A friend function is a non-member function that has permission to access the private and protected members of a class.
+
+    1. It is not part of the class but is declared inside the class using the friend keyword.
+
+    2. Useful when external functions need to operate on private data.
+
+ * Friend Class in C++
+
+A friend class is a class whose all member functions can access the private and protected members of another class.
+
+    1. It is declared using friend class ClassName; inside the class that is giving access.
+
+
+Example: 
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Forward declaration
+class Student;
+
+// Friend Function Declaration
+void displayStudentInfo( Student& s);
+
+// Student class
+class Student {
+private:
+    string name;
+    int age;
+    double grade;
+
+public:
+    Student(string n, int a, double g) {
+        name = n;
+        age = a;
+        grade = g;
+    }
+
+    // Friend function
+    friend void displayStudentInfo( Student& s);
+
+    // Friend class
+    friend class Teacher;
+};
+
+// Friend Function Definition
+void displayStudentInfo( Student& s) {
+    cout << "Student Name: " << s.name << endl;
+    cout << "Age: " << s.age << endl;
+    cout << "Grade: " << s.grade << endl;
+}
+
+// Friend Class Definition
+class Teacher {
+public:
+    void result( Student& s) {
+        if (s.grade >= 60)
+            cout << s.name << " has passed the exam." << endl;
+        else
+            cout << s.name << " has failed the exam." << endl;
+    }
+};
+
+int main() {
+    Student s1("Rafi", 20, 75.5);
+
+    // Using friend function
+    displayStudentInfo(s1);
+
+    // Using friend class
+    Teacher t1;
+    t1.result(s1);
+
+    return 0;
+}
+
+
+
+
+//Question 2: Create a Box Class & VolumeCalculator Class:
+
+#include <iostream>
+using namespace std;
+
+// Forward declaration of Box class
+class Box;
+
+// Friend Function Declaration
+void printBoxDimensions(Box& b);
+
+// Box Class Definition
+class Box {
+private:
+    double length;
+    double width;
+    double height;
+
+public:
+    // Constructor to initialize dimensions
+    Box(double l, double w, double h) {
+        length = l;
+        width = w;
+        height = h;
+    }
+
+    // Friend function
+    friend void printBoxDimensions(Box& b);
+
+    // Friend class
+    friend class VolumeCalculator;
+};
+
+// Friend Function Definition
+void printBoxDimensions(Box& b) {
+    cout << "\nBox Dimensions:" << endl;
+    cout << "Length: " << b.length << endl;
+    cout << "Width : " << b.width << endl;
+    cout << "Height: " << b.height << endl;
+}
+
+// Friend Class Definition
+class VolumeCalculator {
+public:
+    double calculateVolume(Box& b) {
+        return b.length * b.width * b.height;
+    }
+};
+
+
+int main() {
+    double l, w, h;
+
+    cout << "Enter box length: ";
+    cin >> l;
+
+    cout << "Enter box width: ";
+    cin >> w;
+
+    cout << "Enter box height: ";
+    cin >> h;
+
+    
+    Box myBox(l, w, h);
+
+    
+    printBoxDimensions(myBox);
+
+    VolumeCalculator calc;
+    double volume = calc.calculateVolume(myBox);
+
+    cout << "Volume of the Box: " << volume << endl;
+
+    return 0;
+}
+
+
+
+
+//Question 3: Member Functions in C++
+
+ *What is a Member Function in C++?
+
+A member function is a function that is defined inside a class and operates on the data members of that class.
+
+    1. It has access to private and protected members.
+
+    2. It is used to define the behavior of the objects created from that class.
+
+ *How to Define and Call a Member Function?
+
+    1. Inside the class: Define the function body directly inside the class.
+
+    2. Outside the class: Declare inside the Class, define Using the ClassName::FunctionName syntax.
+
+To call a member function:
+
+objectName.functionName();
+
+Example:
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student {
+private:
+    string name;
+    int age;
+
+public:
+    // Member function to set data
+    void setData(string n, int a) {
+        name = n;
+        age = a;
+    }
+
+    // Member function to display data
+    void displayData() {
+        cout << "Student Name: " << name << endl;
+        cout << "Student Age : " << age << endl;
+    }
+};
+
+int main() {
+    Student s1;
+
+    // Call member function to set data
+    s1.setData("Rafi", 20);
+
+    // Call member function to display data
+    s1.displayData();
+
+    return 0;
+}
+
+
+
+//Question 4: Inline Functions in C++
+
+What is an Inline Function?
+
+An inline function is a function for which the compiler attempts to insert the function’s body directly at the place where the function is called, instead of performing a normal function call.
+
+    1. This reduces the overhead of function calls.
+
+   2. Usually used for small, frequently called functions
+
+ * How to Define an Inline Function?
+
+    1. Use the keyword inline before the function definition
+
+    2. Can be defined inside or outside the class
+
+ * Advantages of Inline Functions
+
+    1. Faster execution due to elimination of function call overhead.
+
+    2. Better performance for very small functions.
+
+    3. Can help the compiler optimize your program.
+
+
+    Example:
+
+    #include <iostream>
+using namespace std;
+
+// Inline function to calculate square
+inline int square(int x) {
+    return x * x;
+}
+
+int main() {
+    int num = 5;
+    cout << "Square of " << num << " is " << square(num) << endl;
+    return 0;
+}*/
+

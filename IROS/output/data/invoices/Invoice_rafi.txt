@@ -1,0 +1,6 @@
+===== INVOICE =====
+Customer: rafi
+Payment Method: Bkash
+Total Paid: 980 BDT
+Membership: No
+Loyalty Points: 0
