@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engr. Istiak Ahmed Maruf — Civil Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0D1117;
+    --paper: #F8F5F0;
+    --paper2: #EDE9E2;
+    --gold: #B8860B;
+    --gold-light: #D4A82A;
+    --gold-pale: #F5EDD5;
+    --rust: #8B4513;
+    --muted: #7A7468;
+    --border: rgba(184,134,11,0.18);
+    --white: #FDFCFA;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── LOADER ── */
+  #loader {
+    position: fixed; inset: 0;
+    background: var(--ink);
+    z-index: 10000;
+    display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1.5rem;
+  }
+  #loader.out { animation: loaderOut 0.9s ease forwards; }
+  @keyframes loaderOut { to { opacity: 0; transform: scaleY(0); transform-origin: top; pointer-events: none; } }
+  .l-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-weight: 400;
+    color: var(--paper);
+    opacity: 0;
+    animation: fadeSlide 0.7s 0.3s forwards;
+    letter-spacing: 0.03em;
+    text-align: center;
+  }
+  .l-title-txt {
+    font-size: 0.65rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    opacity: 0;
+    animation: fadeSlide 0.6s 0.5s forwards;
+  }
+  .l-bar-wrap { width: 180px; height: 1px; background: rgba(255,255,255,0.1); margin-top: 0.5rem; }
+  .l-bar { height: 1px; width: 0; background: var(--gold-light); animation: barFill 1.8s 0.6s ease forwards; }
+  @keyframes barFill { to { width: 100%; } }
+  @keyframes fadeSlide { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 900;
+    padding: 1.4rem 3.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(248,245,240,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeSlide 0.6s 2.2s forwards;
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .nav-brand span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -3px; left: 0; right: 100%;
+    height: 1px; background: var(--gold);
+    transition: right 0.35s ease;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { right: 0; }
+  .nav-cta {
+    padding: 0.55rem 1.4rem;
+    background: var(--ink);
+    color: var(--paper) !important;
+    border: none;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--ink) !important; }
+  .nav-cta::after { display: none !important; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+    background: var(--ink);
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 9rem 4rem 5rem 5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 1.8rem;
+    display: flex; align-items: center; gap: 1rem;
+    opacity: 0; animation: fadeSlide 0.6s 2.1s forwards;
+  }
+  .hero-tag::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--paper);
+    opacity: 0; animation: fadeSlide 0.8s 2.25s forwards;
+  }
+  .hero-name em { font-style: italic; color: var(--gold-light); }
+
+  .hero-role {
+    margin-top: 1.5rem;
+    font-size: 1.05rem;
+    color: rgba(248,245,240,0.45);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    opacity: 0; animation: fadeSlide 0.7s 2.4s forwards;
+  }
+
+  .hero-desc {
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: rgba(248,245,240,0.5);
+    font-weight: 300;
+    max-width: 420px;
+    opacity: 0; animation: fadeSlide 0.7s 2.55s forwards;
+  }
+
+  .hero-btns {
+    margin-top: 3rem;
+    display: flex; gap: 1.2rem; align-items: center;
+    opacity: 0; animation: fadeSlide 0.7s 2.7s forwards;
+  }
+  .btn-gold {
+    padding: 0.9rem 2.2rem;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline {
+    padding: 0.9rem 2.2rem;
+    border: 1px solid rgba(248,245,240,0.2);
+    color: rgba(248,245,240,0.65);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 400;
+    text-decoration: none;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold-light); }
+
+  /* Hero right — blueprint art */
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(184,134,11,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(184,134,11,0.07) 1px, transparent 1px);
+    background-size: 35px 35px;
+    animation: gridMove 25s linear infinite;
+  }
+  @keyframes gridMove { 0%{background-position:0 0} 100%{background-position:35px 35px} }
+
+  .hero-art-wrap {
+    position: relative; z-index: 2;
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 6rem 3rem;
+  }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    position: absolute; bottom: 2.5rem; left: 5rem;
+    display: flex; align-items: center; gap: 1rem;
+    opacity: 0; animation: fadeSlide 0.6s 3s forwards;
+  }
+  .scroll-indicator span {
+    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(248,245,240,0.3);
+    writing-mode: vertical-rl; transform: rotate(180deg);
+  }
+  .scroll-line {
+    width: 1px; height: 55px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2.5s infinite;
+  }
+  @keyframes scrollPulse { 0%,100%{opacity:0.6;transform:scaleY(1)} 50%{opacity:0.2;transform:scaleY(0.4)} }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--gold);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 2rem 4rem;
+    gap: 2rem;
+    overflow: hidden;
+  }
+  .stat-item { text-align: center; opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
+  .stat-item.vis { opacity: 1; transform: translateY(0); }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; font-weight: 400;
+    color: var(--ink); line-height: 1;
+  }
+  .stat-lbl { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(13,17,23,0.6); margin-top: 0.4rem; }
+  .stat-div { width: 1px; height: 40px; background: rgba(13,17,23,0.15); }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap { background: var(--ink); overflow: hidden; padding: 0.8rem 0; }
+  .marquee-track { display: inline-flex; animation: marquee 22s linear infinite; white-space: nowrap; }
+  .m-item { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(248,245,240,0.35); margin: 0 2rem; }
+  .m-dot { color: var(--gold); margin: 0 0.3rem; }
+  @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  /* ── SECTION COMMONS ── */
+  .section { padding: 8rem 5rem; }
+  .section-alt { background: var(--white); }
+  .section-dark { background: var(--ink); color: var(--paper); }
+
+  .s-eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .s-eyebrow::before { content:''; width: 22px; height: 1px; background: var(--gold); flex-shrink: 0; }
+  .s-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .s-title-light { color: var(--paper); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.75s ease, transform 0.75s ease; }
+  .reveal.vis { opacity: 1; transform: translateY(0); }
+  .reveal-l { opacity: 0; transform: translateX(-30px); transition: opacity 0.75s ease, transform 0.75s ease; }
+  .reveal-l.vis { opacity: 1; transform: translateX(0); }
+  .reveal-r { opacity: 0; transform: translateX(30px); transition: opacity 0.75s ease, transform 0.75s ease; }
+  .reveal-r.vis { opacity: 1; transform: translateX(0); }
+
+  /* ── ABOUT ── */
+  #about { background: var(--white); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 7rem;
+    align-items: start;
+    margin-top: 4rem;
+  }
+  .about-photo-wrap {
+    position: relative;
+  }
+  .about-photo-box {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--paper2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .photo-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--paper2) 0%, var(--gold-pale) 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+  }
+  .photo-initials {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 400;
+    color: var(--gold);
+    line-height: 1;
+    opacity: 0.4;
+  }
+  .photo-note { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .about-photo-box::before {
+    content: '';
+    position: absolute; top: 12px; left: 12px; right: -8px; bottom: -8px;
+    border: 1px solid var(--gold); opacity: 0.3; z-index: -1;
+  }
+
+  .about-tag {
+    position: absolute; bottom: -1.5rem; right: -1rem;
+    background: var(--gold);
+    color: var(--ink);
+    padding: 0.8rem 1.2rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .about-content {}
+  .about-intro {
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: var(--ink);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    border-left: 2px solid var(--gold);
+    padding-left: 1.5rem;
+  }
+  .about-body {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  .about-pills {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem;
+  }
+  .pill {
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--border);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    font-weight: 400;
+    background: var(--paper);
+    transition: all 0.25s;
+  }
+  .pill:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+
+  /* ── EDUCATION ── */
+  #education { background: var(--paper); }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-top: 4rem; background: var(--border); }
+  .edu-card {
+    background: var(--white);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .edu-card.vis { opacity: 1; transform: translateY(0); }
+  .edu-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
+    background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .edu-card:hover::after { transform: scaleX(1); }
+  .edu-year {
+    font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem; font-weight: 500;
+  }
+  .edu-icon { font-size: 1.8rem; margin-bottom: 1.2rem; display: block; }
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 400; color: var(--ink);
+    margin-bottom: 0.5rem; line-height: 1.3;
+  }
+  .edu-inst { font-size: 0.82rem; color: var(--gold); font-weight: 500; margin-bottom: 0.8rem; }
+  .edu-desc { font-size: 0.82rem; line-height: 1.7; color: var(--muted); font-weight: 300; }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--ink); }
+  .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; margin-top: 4rem; }
+  .skill-group-title {
+    font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 2rem; font-weight: 500;
+  }
+  .skill-item { margin-bottom: 1.8rem; }
+  .skill-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.6rem; }
+  .skill-name { font-size: 0.88rem; color: rgba(248,245,240,0.8); font-weight: 400; }
+  .skill-pct { font-size: 0.72rem; color: var(--gold); font-weight: 500; letter-spacing: 0.1em; }
+  .skill-track { width: 100%; height: 1px; background: rgba(248,245,240,0.08); position: relative; }
+  .skill-fill {
+    position: absolute; top: 0; left: 0; height: 1px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    width: 0%; transition: width 1.4s ease;
+  }
+  .skill-item.vis .skill-fill { width: var(--w); }
+
+  .other-skills { margin-top: 1rem; }
+  .skill-tag {
+    display: inline-block; margin: 0.35rem 0.35rem 0 0;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(248,245,240,0.1);
+    font-size: 0.75rem; color: rgba(248,245,240,0.55); font-weight: 300;
+    transition: all 0.3s;
+  }
+  .skill-tag:hover { border-color: var(--gold); color: var(--gold-light); }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--white); }
+  .exp-list { margin-top: 4rem; }
+  .exp-item {
+    display: grid; grid-template-columns: 140px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    opacity: 0; transform: translateY(25px);
+    transition: opacity 0.65s, transform 0.65s;
+    position: relative;
+  }
+  .exp-item.vis { opacity: 1; transform: translateY(0); }
+  .exp-item::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+    background: var(--gold); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .exp-item:hover::before { transform: scaleX(1); }
+  .exp-date {
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); padding-top: 4px; font-weight: 500;
+  }
+  .exp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 400; color: var(--ink); margin-bottom: 0.3rem;
+  }
+  .exp-org { font-size: 0.8rem; color: var(--gold); font-weight: 500; margin-bottom: 0.8rem; }
+  .exp-desc { font-size: 0.88rem; line-height: 1.8; color: var(--muted); font-weight: 300; }
+
+  /* ── SKILLS EXTRA ── */
+  #extra { background: var(--paper2); }
+  .extra-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 4rem; background: var(--border); }
+  .extra-card {
+    background: var(--paper);
+    padding: 2.2rem 1.8rem;
+    text-align: center;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .extra-card.vis { opacity: 1; transform: translateY(0); }
+  .extra-card:hover { background: var(--ink); }
+  .extra-card:hover .extra-label { color: var(--paper); }
+  .extra-card:hover .extra-desc { color: rgba(248,245,240,0.5); }
+  .extra-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .extra-label { font-size: 0.88rem; font-weight: 500; color: var(--ink); margin-bottom: 0.5rem; transition: color 0.3s; }
+  .extra-desc { font-size: 0.78rem; line-height: 1.6; color: var(--muted); font-weight: 300; transition: color 0.3s; }
+
+  /* ── VOLUNTEER ── */
+  #volunteer { background: var(--ink); }
+  .vol-box {
+    margin-top: 4rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    background: rgba(184,134,11,0.08);
+  }
+  .vol-card {
+    background: var(--ink);
+    padding: 3rem 2.5rem;
+    border: 1px solid rgba(184,134,11,0.08);
+    opacity: 0; transform: translateY(25px);
+    transition: opacity 0.6s, transform 0.6s;
+    position: relative; overflow: hidden;
+  }
+  .vol-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--gold); }
+  .vol-card.vis { opacity: 1; transform: translateY(0); }
+  .vol-badge {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid rgba(184,134,11,0.3);
+    font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem; font-weight: 500;
+  }
+  .vol-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 400; color: var(--paper); margin-bottom: 0.5rem;
+  }
+  .vol-org { font-size: 0.82rem; color: var(--gold-light); margin-bottom: 1rem; font-weight: 500; letter-spacing: 0.05em; }
+  .vol-desc { font-size: 0.85rem; line-height: 1.8; color: rgba(248,245,240,0.5); font-weight: 300; }
+
+  /* ── HOBBY ── */
+  #hobby { background: var(--paper); }
+  .hobby-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 4rem; }
+  .hobby-card {
+    padding: 3rem;
+    border: 1px solid var(--border);
+    display: flex; gap: 2rem; align-items: flex-start;
+    background: var(--white);
+    opacity: 0; transform: translateX(-20px);
+    transition: opacity 0.65s, transform 0.65s;
+  }
+  .hobby-card.vis { opacity: 1; transform: translateX(0); }
+  .hobby-card:hover { border-color: var(--gold); }
+  .hobby-icon-box {
+    width: 52px; height: 52px;
+    border: 1px solid var(--border); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .hobby-card:hover .hobby-icon-box { background: var(--gold); border-color: var(--gold); }
+  .hobby-title { font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 0.5rem; }
+  .hobby-desc { font-size: 0.84rem; line-height: 1.75; color: var(--muted); font-weight: 300; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--ink); }
+  .contact-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 7rem; margin-top: 4rem; }
+  .contact-info-item { margin-bottom: 2rem; }
+  .contact-info-item label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.4rem; }
+  .contact-info-item a, .contact-info-item span { font-size: 0.95rem; color: rgba(248,245,240,0.7); text-decoration: none; font-weight: 300; transition: color 0.3s; }
+  .contact-info-item a:hover { color: var(--gold-light); }
+
+  .availability {
+    margin-top: 3rem; padding: 1.5rem 1.8rem;
+    border: 1px solid rgba(184,134,11,0.2);
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .avail-dot { width: 8px; height: 8px; border-radius: 50%; background: #4CAF50; animation: pulse 2s infinite; flex-shrink: 0; }
+  @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(76,175,80,0.4)} 50%{box-shadow:0 0 0 6px rgba(76,175,80,0)} }
+  .avail-text { font-size: 0.8rem; color: rgba(248,245,240,0.5); font-weight: 300; }
+  .avail-text strong { color: rgba(248,245,240,0.9); font-weight: 500; }
+
+  /* Form */
+  .form-group { margin-bottom: 1.4rem; }
+  .form-group label { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(248,245,240,0.35); display: block; margin-bottom: 0.55rem; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(248,245,240,0.1);
+    color: var(--paper);
+    padding: 0.9rem 1.1rem;
+    font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 300;
+    outline: none; resize: none; appearance: none; border-radius: 0;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--gold); background: rgba(184,134,11,0.04);
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(248,245,240,0.2); }
+  .form-group select option { background: #1a1a18; color: var(--paper); }
+  .form-group textarea { min-height: 120px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-status { font-size: 0.8rem; padding: 0.8rem 1rem; margin-top: 0.8rem; display: none; }
+  .form-status.ok { display: block; border: 1px solid rgba(76,175,80,0.3); color: rgba(76,175,80,0.9); background: rgba(76,175,80,0.05); }
+  .form-status.err { display: block; border: 1px solid rgba(220,80,80,0.3); color: rgba(220,80,80,0.9); background: rgba(220,80,80,0.05); }
+  .btn-submit {
+    margin-top: 0.5rem;
+    padding: 1rem 2.4rem;
+    background: var(--gold);
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600;
+    border: none; cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-flex; align-items: center; gap: 0.8rem;
+  }
+  .btn-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #08090B;
+    border-top: 1px solid rgba(184,134,11,0.1);
+    padding: 2rem 5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    color: rgba(248,245,240,0.25);
+    font-size: 0.72rem; letter-spacing: 0.08em;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; color: rgba(248,245,240,0.35);
+  }
+  .footer-brand span { color: var(--gold); }
+
+  /* ── MOBILE ── */
+  @media(max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 7rem 2rem 4rem; }
+    .section { padding: 5rem 2rem; }
+    .about-grid, .skills-layout, .contact-layout, .hobby-grid, .vol-box { grid-template-columns: 1fr; gap: 3rem; }
+    .edu-grid, .extra-grid { grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .stats-bar { flex-wrap: wrap; padding: 2rem; gap: 1rem; }
+    .stat-div { display: none; }
+    footer { flex-direction: column; gap: 1rem; padding: 1.5rem 2rem; text-align: center; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="l-name">Istiak Ahmed Maruf</div>
+  <div class="l-title-txt">Civil Engineer · Bangladesh</div>
+  <div class="l-bar-wrap"><div class="l-bar"></div></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-brand">Engr. <span>Maruf</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#volunteer">Volunteer</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Civil Engineer — Bangladesh</div>
+    <h1 class="hero-name">
+      Istiak<br>
+      Ahmed<br>
+      <em>Maruf</em>
+    </h1>
+    <p class="hero-role">AutoCAD Expert · Aspiring Civil Engineer</p>
+    <p class="hero-desc">
+      Aspiring Civil Engineer with a Diploma in Civil Engineering — passionate about construction, infrastructure development, and delivering excellence in every assigned task.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-gold">Hire Me →</a>
+      <a href="#about" class="btn-outline">Learn More</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-art-wrap">
+      <!-- Animated blueprint SVG -->
+      <svg viewBox="0 0 480 560" style="width:100%;max-width:440px;opacity:0.85" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="hgrid" width="30" height="30" patternUnits="userSpaceOnUse">
+            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(184,134,11,0.1)" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+        <rect width="480" height="560" fill="url(#hgrid)"/>
+
+        <!-- Building outline -->
+        <rect x="80" y="120" width="320" height="370" fill="none" stroke="#B8860B" stroke-width="1.5" class="draw-anim" style="stroke-dasharray:1400;stroke-dashoffset:1400;animation:drawIn 3s 2.5s ease forwards"/>
+        <!-- Floor lines -->
+        <line x1="80" y1="190" x2="400" y2="190" stroke="rgba(184,134,11,0.4)" stroke-width="0.8" class="draw-anim" style="stroke-dasharray:400;stroke-dashoffset:400;animation:drawIn 1.5s 3s ease forwards"/>
+        <line x1="80" y1="260" x2="400" y2="260" stroke="rgba(184,134,11,0.4)" stroke-width="0.8" class="draw-anim" style="stroke-dasharray:400;stroke-dashoffset:400;animation:drawIn 1.5s 3.2s ease forwards"/>
+        <line x1="80" y1="330" x2="400" y2="330" stroke="rgba(184,134,11,0.4)" stroke-width="0.8" class="draw-anim" style="stroke-dasharray:400;stroke-dashoffset:400;animation:drawIn 1.5s 3.4s ease forwards"/>
+        <line x1="80" y1="400" x2="400" y2="400" stroke="rgba(184,134,11,0.4)" stroke-width="0.8" class="draw-anim" style="stroke-dasharray:400;stroke-dashoffset:400;animation:drawIn 1.5s 3.6s ease forwards"/>
+        <!-- Column lines -->
+        <line x1="190" y1="120" x2="190" y2="490" stroke="rgba(184,134,11,0.3)" stroke-width="0.8" class="draw-anim" style="stroke-dasharray:400;stroke-dashoffset:400;animation:drawIn 1.5s 3.8s ease forwards"/>
+        <line x1="295" y1="120" x2="295" y2="490" stroke="rgba(184,134,11,0.3)" stroke-width="0.8" class="draw-anim" style="stroke-dasharray:400;stroke-dashoffset:400;animation:drawIn 1.5s 4s ease forwards"/>
+        <!-- Windows -->
+        <rect x="100" y="140" width="50" height="36" fill="none" stroke="#B8860B" stroke-width="1" class="draw-anim" style="stroke-dasharray:200;stroke-dashoffset:200;animation:drawIn 1s 4.2s ease forwards" opacity="0.6"/>
+        <rect x="213" y="140" width="50" height="36" fill="none" stroke="#B8860B" stroke-width="1" class="draw-anim" style="stroke-dasharray:200;stroke-dashoffset:200;animation:drawIn 1s 4.3s ease forwards" opacity="0.6"/>
+        <rect x="320" y="140" width="58" height="36" fill="none" stroke="#B8860B" stroke-width="1" class="draw-anim" style="stroke-dasharray:200;stroke-dashoffset:200;animation:drawIn 1s 4.4s ease forwards" opacity="0.6"/>
+        <rect x="100" y="210" width="50" height="36" fill="none" stroke="#B8860B" stroke-width="1" class="draw-anim" style="stroke-dasharray:200;stroke-dashoffset:200;animation:drawIn 1s 4.5s ease forwards" opacity="0.6"/>
+        <rect x="213" y="210" width="50" height="36" fill="none" stroke="#B8860B" stroke-width="1" class="draw-anim" style="stroke-dasharray:200;stroke-dashoffset:200;animation:drawIn 1s 4.6s ease forwards" opacity="0.6"/>
+        <rect x="320" y="210" width="58" height="36" fill="none" stroke="#B8860B" stroke-width="1" class="draw-anim" style="stroke-dasharray:200;stroke-dashoffset:200;animation:drawIn 1s 4.7s ease forwards" opacity="0.6"/>
+        <!-- Door -->
+        <rect x="205" y="430" width="70" height="60" fill="none" stroke="#B8860B" stroke-width="1.5" class="draw-anim" style="stroke-dasharray:260;stroke-dashoffset:260;animation:drawIn 1s 4.8s ease forwards"/>
+        <!-- Roof line -->
+        <line x1="60" y1="120" x2="420" y2="120" stroke="rgba(184,134,11,0.5)" stroke-width="2" class="draw-anim" style="stroke-dasharray:400;stroke-dashoffset:400;animation:drawIn 1s 2.8s ease forwards"/>
+        <!-- Triangle roof peak -->
+        <line x1="80" y1="120" x2="240" y2="50" stroke="rgba(184,134,11,0.5)" stroke-width="1.5" class="draw-anim" style="stroke-dasharray:200;stroke-dashoffset:200;animation:drawIn 0.8s 3s ease forwards"/>
+        <line x1="400" y1="120" x2="240" y2="50" stroke="rgba(184,134,11,0.5)" stroke-width="1.5" class="draw-anim" style="stroke-dasharray:200;stroke-dashoffset:200;animation:drawIn 0.8s 3.1s ease forwards"/>
+        <!-- Ground -->
+        <line x1="40" y1="490" x2="440" y2="490" stroke="rgba(184,134,11,0.4)" stroke-width="2"/>
+        <!-- Foundation piles -->
+        <line x1="130" y1="490" x2="115" y2="540" stroke="rgba(184,134,11,0.25)" stroke-width="1.5"/>
+        <line x1="190" y1="490" x2="190" y2="540" stroke="rgba(184,134,11,0.25)" stroke-width="1.5"/>
+        <line x1="295" y1="490" x2="295" y2="540" stroke="rgba(184,134,11,0.25)" stroke-width="1.5"/>
+        <line x1="355" y1="490" x2="370" y2="540" stroke="rgba(184,134,11,0.25)" stroke-width="1.5"/>
+        <!-- Dimension lines -->
+        <line x1="430" y1="120" x2="430" y2="490" stroke="rgba(184,134,11,0.2)" stroke-width="0.8" stroke-dasharray="4,4"/>
+        <text x="442" y="310" fill="rgba(184,134,11,0.4)" font-size="9" font-family="Outfit" text-anchor="middle" transform="rotate(-90,442,310)" letter-spacing="1">HEIGHT  36.5m</text>
+        <line x1="80" y1="20" x2="400" y2="20" stroke="rgba(184,134,11,0.2)" stroke-width="0.8" stroke-dasharray="4,4"/>
+        <text x="240" y="14" fill="rgba(184,134,11,0.4)" font-size="9" font-family="Outfit" text-anchor="middle" letter-spacing="1">WIDTH  24.0m</text>
+        <!-- Title block -->
+        <rect x="10" y="10" width="210" height="28" fill="none" stroke="rgba(184,134,11,0.15)" stroke-width="0.8"/>
+        <text x="20" y="22" fill="rgba(184,134,11,0.55)" font-size="8" font-family="Outfit" letter-spacing="2">ACADEMIC BUILDING — ELEVATION</text>
+        <text x="20" y="33" fill="rgba(184,134,11,0.3)" font-size="7" font-family="Outfit" letter-spacing="2">DWG-01 · SCALE 1:150</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<style>
+@keyframes drawIn { to { stroke-dashoffset: 0; } }
+</style>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num"><span class="counter" data-t="3">0</span>+</div>
+    <div class="stat-lbl">Years Study</div>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <div class="stat-num"><span class="counter" data-t="5">0</span>+</div>
+    <div class="stat-lbl">Certifications</div>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <div class="stat-num"><span class="counter" data-t="10">0</span>+</div>
+    <div class="stat-lbl">Skills Mastered</div>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <div class="stat-num"><span class="counter" data-t="1">0</span></div>
+    <div class="stat-lbl">Foundation Founded</div>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <div class="stat-num"><span class="counter" data-t="100">0</span>%</div>
+    <div class="stat-lbl">Dedicated</div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="m-item">AutoCAD Expert</span><span class="m-dot">✦</span>
+    <span class="m-item">Civil Engineering</span><span class="m-dot">✦</span>
+    <span class="m-item">Estimation & Costing</span><span class="m-dot">✦</span>
+    <span class="m-item">Structural Design</span><span class="m-dot">✦</span>
+    <span class="m-item">Photography</span><span class="m-dot">✦</span>
+    <span class="m-item">Event Management</span><span class="m-dot">✦</span>
+    <span class="m-item">Video Editing</span><span class="m-dot">✦</span>
+    <span class="m-item">Facebook Marketing</span><span class="m-dot">✦</span>
+    <span class="m-item">Leadership</span><span class="m-dot">✦</span>
+    <span class="m-item">AutoCAD Expert</span><span class="m-dot">✦</span>
+    <span class="m-item">Civil Engineering</span><span class="m-dot">✦</span>
+    <span class="m-item">Estimation & Costing</span><span class="m-dot">✦</span>
+    <span class="m-item">Structural Design</span><span class="m-dot">✦</span>
+    <span class="m-item">Photography</span><span class="m-dot">✦</span>
+    <span class="m-item">Event Management</span><span class="m-dot">✦</span>
+    <span class="m-item">Video Editing</span><span class="m-dot">✦</span>
+    <span class="m-item">Facebook Marketing</span><span class="m-dot">✦</span>
+    <span class="m-item">Leadership</span><span class="m-dot">✦</span>
+  </div>
+</div>
+
+<!-- ══════════════ ABOUT ══════════════ -->
+<section id="about" class="section section-alt">
+  <div class="s-eyebrow reveal">About Me</div>
+  <div class="about-grid">
+    <div class="reveal-l">
+      <div class="about-photo-box">
+        <div class="photo-placeholder">
+          <div class="photo-initials">IAM</div>
+          <div class="photo-note">Add your photo here</div>
+        </div>
+        <div class="about-tag">Civil Engineer</div>
+      </div>
+    </div>
+    <div class="reveal-r">
+      <h2 class="s-title">Istiak Ahmed<br><em style="font-style:italic;color:var(--gold)">Maruf</em></h2>
+      <p class="about-intro">
+        Aspiring Civil Engineer with a strong foundation in AutoCAD, structural estimation, and hands-on training — eager to contribute to innovative construction projects and infrastructure development.
+      </p>
+      <p class="about-body">
+        I am currently pursuing my B.Sc. in Civil Engineering at World University of Bangladesh. I hold a Diploma in Civil Engineering from Barisal Polytechnic Institute and completed my SSC from Galachipa Model Government Secondary School under the science group.
+      </p>
+      <p class="about-body">
+        I have successfully completed a professional internship training in AutoCAD and Estimation from CAD Core Training Institute, which sharpened my technical skills in drafting, quantity surveying, and cost estimation.
+      </p>
+      <p class="about-body">
+        Beyond engineering, I have experience in photography, video editing, Facebook marketing, event management, and social organization work. I am the Founder & CEO of SNIGDHA CHAYA FOUNDATION and an active volunteer in my community.
+      </p>
+      <div class="about-pills">
+        <span class="pill">AutoCAD Expert</span>
+        <span class="pill">Cost Estimation</span>
+        <span class="pill">Structural Drawing</span>
+        <span class="pill">Photography</span>
+        <span class="pill">Event Management</span>
+        <span class="pill">Leadership</span>
+        <span class="pill">Video Editing</span>
+        <span class="pill">Facebook Marketing</span>
+        <span class="pill">Volunteer</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ EDUCATION ══════════════ -->
+<section id="education" class="section">
+  <div class="s-eyebrow reveal">Academic Background</div>
+  <h2 class="s-title reveal">Education &<br>Training</h2>
+  <div class="edu-grid">
+
+    <div class="edu-card">
+      <div class="edu-year">2013 — 2019</div>
+      <span class="edu-icon">🏫</span>
+      <div class="edu-degree">Secondary School Certificate (SSC)</div>
+      <div class="edu-inst">Galachipa Model Govt. Secondary School</div>
+      <div class="edu-desc">Completed SSC under the Science group. Built a strong foundation in Mathematics, Physics, and Chemistry — essential disciplines for engineering.</div>
+    </div>
+
+    <div class="edu-card" style="transition-delay:.12s">
+      <div class="edu-year">2019 — 2023</div>
+      <span class="edu-icon">🏗️</span>
+      <div class="edu-degree">Diploma in Civil Engineering</div>
+      <div class="edu-inst">Barisal Polytechnic Institute</div>
+      <div class="edu-desc">Four-year diploma covering structural engineering, surveying, AutoCAD drafting, construction management, quantity surveying, and hydraulics.</div>
+    </div>
+
+    <div class="edu-card" style="transition-delay:.24s">
+      <div class="edu-year">2023 — Present</div>
+      <span class="edu-icon">🎓</span>
+      <div class="edu-degree">B.Sc. in Civil Engineering</div>
+      <div class="edu-inst">World University of Bangladesh</div>
+      <div class="edu-desc">Currently pursuing Bachelor of Science in Civil Engineering — focusing on advanced structural analysis, geotechnical engineering, and sustainable construction.</div>
+    </div>
+
+  </div>
+
+  <!-- Certification row -->
+  <div style="margin-top:2px;background:var(--border)">
+    <div class="edu-card" style="background:var(--gold-pale);display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:center;transition-delay:.36s">
+      <span class="edu-icon" style="font-size:2.5rem;margin-bottom:0">📜</span>
+      <div>
+        <div class="edu-year" style="margin-bottom:0.4rem">Professional Training</div>
+        <div class="edu-degree">AutoCAD & Estimation — CAD Core Training Institute</div>
+        <div class="edu-inst" style="margin-top:0.3rem">Certified Internship Training</div>
+        <div class="edu-desc" style="margin-top:0.6rem">Intensive professional training in AutoCAD 2D/3D drafting, structural drawings, quantity take-off, and cost estimation for civil engineering projects.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ SKILLS ══════════════ -->
+<section id="skills" class="section section-dark">
+  <div class="s-eyebrow reveal" style="color:var(--gold)">Technical Expertise</div>
+  <h2 class="s-title s-title-light reveal">Skills &<br>Competencies</h2>
+  <div class="skills-layout">
+    <div>
+      <div class="skill-group-title">Core Engineering Skills</div>
+
+      <div class="skill-item" style="--w:95%">
+        <div class="skill-row">
+          <span class="skill-name">AutoCAD (2D & 3D)</span>
+          <span class="skill-pct">95%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-item" style="--w:80%;transition-delay:.1s">
+        <div class="skill-row">
+          <span class="skill-name">Structural Drawing & Drafting</span>
+          <span class="skill-pct">80%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-item" style="--w:78%;transition-delay:.2s">
+        <div class="skill-row">
+          <span class="skill-name">Cost Estimation & BOQ</span>
+          <span class="skill-pct">78%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-item" style="--w:72%;transition-delay:.3s">
+        <div class="skill-row">
+          <span class="skill-name">Quantity Surveying</span>
+          <span class="skill-pct">72%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-item" style="--w:70%;transition-delay:.4s">
+        <div class="skill-row">
+          <span class="skill-name">Site Supervision & Management</span>
+          <span class="skill-pct">70%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-item" style="--w:65%;transition-delay:.5s">
+        <div class="skill-row">
+          <span class="skill-name">MS Office (Word, Excel)</span>
+          <span class="skill-pct">65%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill"></div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="skill-group-title">Additional Skills</div>
+      <div class="other-skills">
+        <span class="skill-tag">Photography</span>
+        <span class="skill-tag">Video Editing</span>
+        <span class="skill-tag">Facebook Marketing</span>
+        <span class="skill-tag">Page Management</span>
+        <span class="skill-tag">Event Management</span>
+        <span class="skill-tag">Event Organization</span>
+        <span class="skill-tag">Public Speaking</span>
+        <span class="skill-tag">Acting</span>
+        <span class="skill-tag">Leadership</span>
+        <span class="skill-tag">Team Management</span>
+        <span class="skill-tag">Community Work</span>
+        <span class="skill-tag">Social Media</span>
+      </div>
+
+      <div style="margin-top:3rem">
+        <div class="skill-group-title">Languages</div>
+        <div class="skill-item" style="--w:100%;transition-delay:.6s">
+          <div class="skill-row"><span class="skill-name">Bangla</span><span class="skill-pct">Native</span></div>
+          <div class="skill-track"><div class="skill-fill"></div></div>
+        </div>
+        <div class="skill-item" style="--w:65%;transition-delay:.7s">
+          <div class="skill-row"><span class="skill-name">English</span><span class="skill-pct">Intermediate</span></div>
+          <div class="skill-track"><div class="skill-fill"></div></div>
+        </div>
+      </div>
+
+      <div style="margin-top:3rem;padding:1.8rem;border:1px solid rgba(184,134,11,0.15)">
+        <div class="skill-group-title" style="margin-bottom:1rem">Career Objective</div>
+        <p style="font-size:0.85rem;line-height:1.8;color:rgba(248,245,240,0.5);font-weight:300">
+          Seeking an entry-level position to utilize my technical knowledge and passion for construction and infrastructure development. Eager to contribute to innovative projects, ensure quality standards, and develop practical skills while supporting the growth of a reputed organization.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ EXPERIENCE ══════════════ -->
+<section id="experience" class="section section-alt">
+  <div class="s-eyebrow reveal">Professional Journey</div>
+  <h2 class="s-title reveal">Training &<br>Experience</h2>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-date">2023</div>
+      <div>
+        <div class="exp-title">Professional AutoCAD & Estimation Trainee</div>
+        <div class="exp-org">CAD Core Training Institute</div>
+        <div class="exp-desc">Completed an intensive internship training program covering professional-grade AutoCAD drafting (2D/3D), architectural and structural drawing interpretation, quantity take-off (QTO), bill of quantities (BOQ) preparation, and cost estimation for residential and commercial projects.</div>
+      </div>
+    </div>
+
+    <div class="exp-item" style="transition-delay:.1s">
+      <div class="exp-date">Ongoing</div>
+      <div>
+        <div class="exp-title">Founder & Chief Executive Officer</div>
+        <div class="exp-org">SNIGDHA CHAYA FOUNDATION</div>
+        <div class="exp-desc">Founded and currently leading a social welfare organization focused on community development, humanitarian aid, and youth empowerment. Responsible for organizational strategy, team leadership, event management, fundraising, and volunteer coordination.</div>
+      </div>
+    </div>
+
+    <div class="exp-item" style="transition-delay:.2s">
+      <div class="exp-date">Various</div>
+      <div>
+        <div class="exp-title">Digital Content Creator & Facebook Marketer</div>
+        <div class="exp-org">Freelance / Self-employed</div>
+        <div class="exp-desc">Managed Facebook pages, created promotional content, handled community engagement, and executed digital marketing campaigns. Experience in video editing, photo editing, and storytelling through visual media.</div>
+      </div>
+    </div>
+
+    <div class="exp-item" style="transition-delay:.3s">
+      <div class="exp-date">Various</div>
+      <div>
+        <div class="exp-title">Volunteer & Community Organizer</div>
+        <div class="exp-org">Multiple Social Organizations · Bangladesh</div>
+        <div class="exp-desc">Active volunteer with experience across multiple social organizations in Bangladesh. Contributed to relief work, event organizing, awareness campaigns, and leadership programs. Strong belief in giving back to the community.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════ EXTRA SKILLS ══════════════ -->
+<section id="extra" class="section" style="padding-top:0;background:var(--paper2)">
+  <div class="section" style="padding-bottom:0">
+    <div class="s-eyebrow reveal">Beyond Engineering</div>
+    <h2 class="s-title reveal">Creative &<br>Soft Skills</h2>
+  </div>
+  <div class="extra-grid">
+    <div class="extra-card">
+      <span class="extra-icon">📸</span>
+      <div class="extra-label">Photography</div>
+      <div class="extra-desc">Passionate about capturing moments — landscape, portrait, and event photography with an artistic eye.</div>
+    </div>
+    <div class="extra-card" style="transition-delay:.1s">
+      <span class="extra-icon">🎬</span>
+      <div class="extra-label">Video Editing</div>
+      <div class="extra-desc">Skilled in video production and post-processing for social media, events, and promotional content.</div>
+    </div>
+    <div class="extra-card" style="transition-delay:.2s">
+      <span class="extra-icon">📣</span>
+      <div class="extra-label">Event Management</div>
+      <div class="extra-desc">Experienced in organizing, planning, and executing events — from small community programs to large-scale gatherings.</div>
+    </div>
+    <div class="extra-card" style="transition-delay:.3s">
+      <span class="extra-icon">🎭</span>
+      <div class="extra-label">Acting & Direction</div>
+      <div class="extra-desc">Experience in acting and explaining topics with clear direction — strong stage presence and public communication skills.</div>
+    </div>
+    <div class="extra-card" style="transition-delay:.4s">
+      <span class="extra-icon">📘</span>
+      <div class="extra-label">Facebook Marketing</div>
+      <div class="extra-desc">Managing Facebook pages, running campaigns, growing audiences, and creating engaging content for digital platforms.</div>
+    </div>
+    <div class="extra-card" style="transition-delay:.5s">
+      <span class="extra-icon">🤝</span>
+      <div class="extra-label">Leadership</div>
+      <div class="extra-desc">Proven leadership through founding SNIGDHA CHAYA FOUNDATION and leading teams across social and professional settings.</div>
+    </div>
+    <div class="extra-card" style="transition-delay:.6s">
+      <span class="extra-icon">🌍</span>
+      <div class="extra-label">Community Work</div>
+      <div class="extra-desc">Dedicated volunteer with experience across multiple social organizations focused on humanitarian and community development.</div>
+    </div>
+    <div class="extra-card" style="transition-delay:.7s">
+      <span class="extra-icon">✈️</span>
+      <div class="extra-label">Travelling</div>
+      <div class="extra-desc">Hobby traveller who finds inspiration in new places, cultures, and landscapes — fuelling creativity and perspective.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ VOLUNTEER ══════════════ -->
+<section id="volunteer" class="section section-dark">
+  <div class="s-eyebrow reveal" style="color:var(--gold)">Social Impact</div>
+  <h2 class="s-title s-title-light reveal">Volunteer &<br>Leadership</h2>
+  <div class="vol-box">
+    <div class="vol-card">
+      <div class="vol-badge">Founder & CEO</div>
+      <div class="vol-title">SNIGDHA CHAYA FOUNDATION</div>
+      <div class="vol-org">Social Welfare Organization · Bangladesh</div>
+      <div class="vol-desc">Founded and leading this social welfare organization committed to uplifting marginalized communities, supporting youth development, and providing humanitarian assistance. Oversees all strategic decisions, team leadership, and program execution.</div>
+    </div>
+    <div class="vol-card" style="transition-delay:.12s">
+      <div class="vol-badge">Active Volunteer</div>
+      <div class="vol-title">Community & Social Organizations</div>
+      <div class="vol-org">Multiple Organizations · Bangladesh</div>
+      <div class="vol-desc">Contributing as a volunteer across various social organizations in Bangladesh. Participated in relief programs, awareness drives, educational campaigns, and youth leadership activities. Strong dedication to civic responsibility and social good.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ HOBBY ══════════════ -->
+<section id="hobby" class="section">
+  <div class="s-eyebrow reveal">Personal Interests</div>
+  <h2 class="s-title reveal">Hobbies &<br>Passions</h2>
+  <div class="hobby-grid">
+    <div class="hobby-card">
+      <div class="hobby-icon-box">📸</div>
+      <div>
+        <div class="hobby-title">Photography</div>
+        <div class="hobby-desc">Capturing the world through the lens — from architectural details to natural landscapes. Photography helps me see precision and beauty in structures, reinforcing my engineering perspective.</div>
+      </div>
+    </div>
+    <div class="hobby-card" style="transition-delay:.1s">
+      <div class="hobby-icon-box">✈️</div>
+      <div>
+        <div class="hobby-title">Travelling</div>
+        <div class="hobby-desc">Exploring new places, observing different infrastructure, architecture styles, and construction methods across Bangladesh fuels both my creativity and my engineering curiosity.</div>
+      </div>
+    </div>
+    <div class="hobby-card" style="transition-delay:.2s">
+      <div class="hobby-icon-box">🎬</div>
+      <div>
+        <div class="hobby-title">Video Creation</div>
+        <div class="hobby-desc">Creating and editing video content — documentaries, short films, and social media clips. Combining storytelling with technical precision mirrors my engineering mindset.</div>
+      </div>
+    </div>
+    <div class="hobby-card" style="transition-delay:.3s">
+      <div class="hobby-icon-box">🌱</div>
+      <div>
+        <div class="hobby-title">Community Service</div>
+        <div class="hobby-desc">Spending time with social welfare activities and volunteer work. Building communities is as important to me as building structures — both require dedication and care.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CONTACT ══════════════ -->
+<section id="contact" class="section section-dark">
+  <div class="s-eyebrow reveal" style="color:var(--gold)">Get In Touch</div>
+  <h2 class="s-title s-title-light reveal">Let's Work<br><em style="font-style:italic;color:var(--gold)">Together</em></h2>
+  <div class="contact-layout">
+    <div class="reveal-l">
+      <p style="font-size:1rem;line-height:1.85;color:rgba(248,245,240,0.5);font-weight:300;margin-bottom:2.5rem">
+        Open for entry-level civil engineering roles, AutoCAD drafting projects, internships, and freelance opportunities. Let's connect and build something great.
+      </p>
+      <div class="contact-info-item">
+        <label>Name</label>
+        <span>Istiak Ahmed Maruf</span>
+      </div>
+      <div class="contact-info-item">
+        <label>Title</label>
+        <span>Engr. (Civil) — AutoCAD Expert</span>
+      </div>
+      <div class="contact-info-item">
+        <label>Location</label>
+        <span>Bangladesh</span>
+      </div>
+      <div class="contact-info-item">
+        <label>Email</label>
+        <a href="mailto:your@email.com">your@email.com</a>
+      </div>
+      <div class="contact-info-item">
+        <label>Organization</label>
+        <a href="#">SNIGDHA CHAYA FOUNDATION</a>
+      </div>
+
+      <div class="availability">
+        <div class="avail-dot"></div>
+        <div class="avail-text"><strong>Available for opportunities</strong> — Open to entry-level civil engineering positions and AutoCAD projects.</div>
+      </div>
+    </div>
+
+    <div class="reveal-r">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name *</label>
+          <input type="text" id="fName" placeholder="Your full name">
+        </div>
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="fEmail" placeholder="you@email.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <select id="fSubject">
+          <option value="">Select a topic</option>
+          <option value="job">Job Opportunity</option>
+          <option value="autocad">AutoCAD Project</option>
+          <option value="internship">Internship</option>
+          <option value="freelance">Freelance Work</option>
+          <option value="collab">Collaboration</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Phone (optional)</label>
+        <input type="tel" id="fPhone" placeholder="+880 xxxxxxx">
+      </div>
+      <div class="form-group">
+        <label>Message *</label>
+        <textarea id="fMessage" placeholder="Tell me about the opportunity or project..."></textarea>
+      </div>
+      <div class="form-status" id="fStatus"></div>
+      <button class="btn-submit" onclick="sendMsg()">
+        Send Message <span>→</span>
+      </button>
+      <div style="margin-top:1.2rem;font-size:0.7rem;color:rgba(248,245,240,0.2);line-height:1.6">
+        ✦ Message will be delivered to email. Fields marked * are required.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Engr. <span>Istiak Ahmed Maruf</span></div>
+  <span>© 2025 All Rights Reserved · Civil Engineer · Bangladesh</span>
+  <span>Built with precision ✦</span>
+</footer>
+
+<script>
+// ── Loader
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('out'), 2100);
+});
+
+// ── Intersection Observer (all reveals + skill bars)
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      // skill bar trigger
+      if (e.target.classList.contains('skill-item')) {
+        e.target.classList.add('vis');
+      }
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll(
+  '.reveal,.reveal-l,.reveal-r,.stat-item,.edu-card,.exp-item,.extra-card,.vol-card,.hobby-card,.skill-item'
+).forEach(el => io.observe(el));
+
+// ── Counter animation
+const statsIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.counter').forEach(el => {
+        const target = +el.dataset.t;
+        const dur = 1600;
+        const start = performance.now();
+        const tick = now => {
+          const p = Math.min((now - start) / dur, 1);
+          el.textContent = Math.floor((1 - Math.pow(1 - p, 3)) * target);
+          if (p < 1) requestAnimationFrame(tick);
+          else el.textContent = target;
+        };
+        requestAnimationFrame(tick);
+      });
+      e.target.querySelectorAll('.stat-item').forEach((el, i) => {
+        setTimeout(() => el.classList.add('vis'), i * 120);
+      });
+      statsIO.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+const statsEl = document.querySelector('.stats-bar');
+if (statsEl) statsIO.observe(statsEl);
+
+// ── Nav active highlight
+const navLinks = document.querySelectorAll('.nav-links a');
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 160) cur = s.id; });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--gold)' : '';
+  });
+});
+
+// ── Contact form
+function sendMsg() {
+  const name = document.getElementById('fName').value.trim();
+  const email = document.getElementById('fEmail').value.trim();
+  const subject = document.getElementById('fSubject').value;
+  const phone = document.getElementById('fPhone').value.trim();
+  const msg = document.getElementById('fMessage').value.trim();
+  const st = document.getElementById('fStatus');
+
+  if (!name || !email || !msg) {
+    st.className = 'form-status err';
+    st.textContent = '✕ Please fill in all required fields.';
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    st.className = 'form-status err';
+    st.textContent = '✕ Please enter a valid email address.';
+    return;
+  }
+
+  const labels = { job:'Job Opportunity', autocad:'AutoCAD Project', internship:'Internship', freelance:'Freelance Work', collab:'Collaboration', other:'Other', '':'General Inquiry' };
+  const sub = encodeURIComponent(`[Portfolio] ${labels[subject] || 'Contact'} — from ${name}`);
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone || 'N/A'}\nSubject: ${labels[subject] || 'N/A'}\n\nMessage:\n${msg}\n\n---\nSent via portfolio`);
+  window.location.href = `mailto:your@email.com?subject=${sub}&body=${body}`;
+
+  st.className = 'form-status ok';
+  st.textContent = '✓ Your mail client is opening with the message pre-filled. Thank you!';
+
+  console.log('[Contact]', { name, email, phone, subject: labels[subject], msg, time: new Date().toISOString() });
+}
+</script>
+</body>
+</html>
