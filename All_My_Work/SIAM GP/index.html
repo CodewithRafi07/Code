@@ -572,6 +572,23 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
+.music-note{
+    font-size: 14px;
+    color: #92948b; /* Change to your preferred color */
+    text-align: center;
+    margin: 20px 0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .music-note{
+        font-size: 12px;
+        margin: 20px 0;
+    }
+}
+
   .work-year {
     margin-top: 16px;
     font-family: 'Space Mono', monospace;
@@ -815,23 +832,37 @@
   }
   .footer-copy {
     font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--gray-700);
+    font-size: 14px;
+    color: var(--gray-1000);
     letter-spacing: 0.1em;
   }
-  .footer-links {
+.footer-links{
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 24px;
-  }
-  .footer-links a {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--gray-700);
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    transition: color 0.3s ease;
-  }
-  .footer-links a:hover { color: var(--white); }
+}
+
+.footer-links a{
+    color: #ffffff;
+    font-size: 28px;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover{
+    transform: translateY(-3px);
+    opacity: 0.8;
+}
+
+@media (max-width: 768px){
+    .footer-links{
+        gap: 20px;
+    }
+
+    .footer-links a{
+        font-size: 24px;
+    }
+}
 
   /* SCROLL REVEAL */
   .reveal {
@@ -1024,7 +1055,7 @@
     <div class="about-left">
       <h2 class="section-title reveal">Behind the<br>Lens</h2>
       <p class="about-text reveal reveal-delay-1"><strong>KHAN'S FILMOGRAPHY</strong> is a cinematography and filmmaking studio built by <strong>KHAN SIAM</strong> on the belief that light, shadow, and motion can express what words cannot.</p>
-      <p class="about-text reveal reveal-delay-2">From intimate narratives to large-scale commercial productions, we approach every project with the same obsessive attention to visual language.</p>
+      <p class="about-text reveal reveal-delay-2">I love creating visual content, editing videos, and exploring filmmaking. I focus on impactful history detailing and visual quality. Currently, I work as a marketing head at “Adjective Bangladesh,” combining creativity with branding and strategy.</p>
       <div class="about-stats">
         <div class="stat-box reveal reveal-delay-1">
           <span class="stat-num">120+</span>
@@ -1062,8 +1093,8 @@
         <polyline points="30,10 30,38"/>
         <circle cx="24" cy="24" r="4"/>
       </svg>
-      <div class="service-name">Narrative Films</div>
-      <p class="service-desc">Short films and features crafted with intentional visual language — every scene earns its place.</p>
+      <div class="service-name">CINEMATOGRAPHY</div>
+      <p class="service-desc">Visual storytelling through thoughtful framing, movement, and light.</p>
       <span class="service-arrow">↗</span>
     </div>
     <div class="service-card reveal reveal-delay-2">
@@ -1075,8 +1106,8 @@
         <line x1="22" y1="8" x2="22" y2="14"/>
         <line x1="30" y1="8" x2="30" y2="14"/>
       </svg>
-      <div class="service-name">Commercial Films</div>
-      <p class="service-desc">Brand storytelling that converts — visually driven campaigns built for impact and recall.</p>
+      <div class="service-name">VIDEO EDITING</div>
+      <p class="service-desc">Crafting seamless narratives with rhythm, precision, and impact.</p>
       <span class="service-arrow">↗</span>
     </div>
     <div class="service-card reveal reveal-delay-3">
@@ -1087,8 +1118,8 @@
         <path d="M8,24 A16,16 0 0,1 24,8"/>
         <path d="M40,24 A16,16 0 0,1 24,40"/>
       </svg>
-      <div class="service-name">Music Videos</div>
-      <p class="service-desc">Visual identities for artists — rhythm-driven, concept-led, always distinct from the crowd.</p>
+      <div class="service-name">CONTENT CREATION</div>
+      <p class="service-desc">Purpose-driven content designed to engage and inspire audiences.</p>
       <span class="service-arrow">↗</span>
     </div>
     <div class="service-card reveal reveal-delay-4">
@@ -1098,8 +1129,20 @@
         <circle cx="18" cy="18" r="4"/>
         <polyline points="8,32 16,24 22,30 30,20 40,32"/>
       </svg>
-      <div class="service-name">Documentary</div>
-      <p class="service-desc">Truth told beautifully — long-form documentary work with cinematic precision and editorial integrity.</p>
+      <div class="service-name">FILM MAKING</div>
+      <p class="service-desc">From concept to screen — stories shaped with creativity and intent.</p>
+      <span class="service-arrow">↗</span>
+    </div>
+        <div class="service-card reveal reveal-delay-5">
+      <span class="service-number">05</span>
+      <svg class="service-icon" viewBox="0 0 48 48">
+        <rect x="6" y="10" width="36" height="28" rx="2"/>
+        <polyline points="18,10 18,38"/>
+        <polyline points="30,10 30,38"/>
+        <circle cx="24" cy="24" r="4"/>
+      </svg>
+      <div class="service-name">MARKETING & BRANDING</div>
+      <p class="service-desc">Building memorable brands through strategy, visuals, and storytelling.</p>
       <span class="service-arrow">↗</span>
     </div>
   </div>
@@ -1109,13 +1152,8 @@
 <section id="works">
   <div class="section-eyebrow">Selected Works</div>
   <h2 class="section-title reveal">The Work</h2>
-  <div class="works-filter reveal">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="narrative">Narrative</button>
-    <button class="filter-btn" data-filter="commercial">Commercial</button>
-    <button class="filter-btn" data-filter="music">Music Video</button>
-    <button class="filter-btn" data-filter="documentary">Documentary</button>
-  </div>
+
+<p class="music-note"><strong>Click a video to enable sound</strong></p>
   <div class="works-grid">
     
     <!-- Project 1 -->
@@ -1180,7 +1218,7 @@
 
   </div>
 </section>
-
+<!--
 <section id="reviews">
   <div class="section-eyebrow">Testimonials</div>
   <h2 class="section-title reveal">Client<br>Words</h2>
@@ -1208,7 +1246,7 @@
     </div>
   </div>
 </section>
-
+-->
 <section id="contact">
   <div class="section-eyebrow">Get in Touch</div>
   <div class="contact-grid">
@@ -1220,21 +1258,21 @@
           <div class="contact-item-icon">✉</div>
           <div>
             <div class="contact-item-label">Email</div>
-            <div class="contact-item-value">hello@framezero.studio</div>
+            <div class="contact-item-value">siamkhansiam11223@gmail.com</div>
           </div>
         </div>
         <div class="contact-item reveal reveal-delay-1">
           <div class="contact-item-icon">☎</div>
           <div>
             <div class="contact-item-label">Phone</div>
-            <div class="contact-item-value">+1 (212) 555-0198</div>
+            <div class="contact-item-value">+880 18246-88532</div>
           </div>
         </div>
         <div class="contact-item reveal reveal-delay-2">
           <div class="contact-item-icon">⌖</div>
           <div>
             <div class="contact-item-label">Based in</div>
-            <div class="contact-item-value">New York, NY — Available worldwide</div>
+            <div class="contact-item-value">DHAKA, BANGLADESH</div>
           </div>
         </div>
       </div>
@@ -1253,7 +1291,7 @@
         </div>
         <div class="form-group">
           <label class="form-label">Phone</label>
-          <input class="form-input" type="tel" name="phone" placeholder="+1 (000) 000-0000">
+          <input class="form-input" type="tel" name="phone" placeholder="+880 1xxxx-xxxx">
         </div>
         <div class="form-group">
           <label class="form-label">Project Type *</label>
@@ -1297,11 +1335,7 @@
         <button class="submit-btn" type="submit" id="submit-btn">
           <span id="submit-text">Send Message</span>
         </button>
-        <div class="form-note">
-          <span>📋 Submissions saved locally</span>
-          <a href="#" onclick="downloadExcel(); return false;">⬇ Download as Excel</a>
-          <a href="#" id="sheets-link" onclick="openSheetsSetup(); return false;">📊 Sync to Google Sheets</a>
-        </div>
+
       </form>
     </div>
   </div>
@@ -1311,11 +1345,22 @@
   <div class="footer-logo">KHAN'S FILMOGRAPHY</div>
   <div class="footer-copy"> <strong>© 2026 Khan's Filmography. All rights reserved.</strong></div>
   <div class="footer-copy"> <strong>Builded By RAFI KHAN.</strong></div>
-  <div class="footer-links">
-    <a href="#">Instagram</a>
-    <a href="#">Vimeo</a>
-    <a href="#">IMDb</a>
-  </div>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<div class="footer-links">
+    <a href="https://www.instagram.com/siamkhan8579" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-instagram"></i>
+    </a>
+
+    <a href="https://www.facebook.com/people/Khans-Filmography/61576154046408/" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+
+    <a href="https://www.youtube.com/channel/UCaF9cWYHLZADFRZlQESDXKA" target="_blank" rel="noopener noreferrer">
+     <i class="fab fa-youtube"></i>
+       </a>
+</div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -1441,21 +1486,37 @@ function saveSubmission(data) {
 // ─── FORM SUBMIT ──────────────────────────────────────────
 function handleSubmit(e) {
   e.preventDefault();
+
   const form = e.target;
   const btn = document.getElementById('submit-btn');
   const btnText = document.getElementById('submit-text');
+
   const data = Object.fromEntries(new FormData(form));
 
   btn.disabled = true;
   btnText.textContent = 'Sending...';
 
-  setTimeout(() => {
-    saveSubmission(data);
-    showToast('Message sent! We\'ll be in touch soon.', false);
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKp5Ngm8xAAzAeFnfzu59jc08pR4l9IPsRNjzZW3fSXTL_dr9uvG9xzqFAX07VVJqW/exec";
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(() => {
+    showToast("Message sent successfully!");
     form.reset();
+  })
+  .catch(() => {
+    showToast("Failed to send.", true);
+  })
+  .finally(() => {
     btn.disabled = false;
-    btnText.textContent = 'Send Message';
-  }, 1200);
+    btnText.textContent = "Send Message";
+  });
 }
 
 // ─── TOAST ────────────────────────────────────────────────
@@ -1467,54 +1528,7 @@ function showToast(msg, isError = false) {
   setTimeout(() => toast.classList.remove('show'), 4000);
 }
 
-// ─── DOWNLOAD EXCEL ───────────────────────────────────────
-function downloadExcel() {
-  const submissions = getSubmissions();
-  if (!submissions.length) { showToast('No submissions yet.', true); return; }
-  const headers = ['Submitted At', 'Name', 'Email', 'Phone', 'Project Type', 'Budget', 'Timeline', 'Message'];
-  const rows = submissions.map(s => [
-    s.submitted_at || '', s.name || '', s.email || '', s.phone || '',
-    s.project_type || '', s.budget || '', s.timeline || '', s.message || ''
-  ]);
-  const ws = XLSX.utils.aoa_to_sheet([headers, ...rows]);
-  ws['!cols'] = headers.map(() => ({ wch: 22 }));
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Enquiries');
-  XLSX.writeFile(wb, 'KhansFilmography_Enquiries.xlsx');
-  showToast('Excel file downloaded!');
-}
 
-// ─── GOOGLE SHEETS SETUP ──────────────────────────────────
-function openSheetsSetup() {
-  const url = prompt(
-    '📊 Google Sheets Sync\n\nPaste your Google Sheet URL below.\n(Make sure the sheet is set to "Anyone with the link can edit" via Share settings)\n\nLeave blank to clear.',
-    localStorage.getItem('framezero_sheets_url') || ''
-  );
-  if (url === null) return;
-  if (!url.trim()) {
-    localStorage.removeItem('framezero_sheets_url');
-    showToast('Google Sheets link removed.', false);
-    return;
-  }
-  localStorage.setItem('framezero_sheets_url', url.trim());
-  const link = document.getElementById('sheets-link');
-  link.textContent = '📊 Open Google Sheet';
-  link.onclick = (e) => { e.preventDefault(); window.open(localStorage.getItem('framezero_sheets_url'), '_blank'); };
-  showToast('Google Sheet linked! Open it to add your submissions.');
-}
-
-// On load, restore sheets link if saved
-window.addEventListener('load', () => {
-    const saved = localStorage.getItem('framezero_sheets_url');
-    if (saved) {
-        const link = document.getElementById('sheets-link');
-        link.textContent = '📊 Open Google Sheet';
-        link.onclick = (e) => {
-            e.preventDefault();
-            window.open(saved, '_blank');
-        };
-    }
-});
 
 // ─── VIDEO SOUND TOGGLE LOGIC ─────────────────────────────
 function toggleSound(clickedVideo) {
